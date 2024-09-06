@@ -15,6 +15,7 @@
 - **React-Router**
 - **Material-UI**
 - **Emotion**
+- **Jest Testing**
 
 ## Summary
 
@@ -42,6 +43,8 @@ ThinkLab's frontend is a sophisticated and highly interactive user interface des
 - **React Router:** Facilitates smooth navigation between different views in the application, allowing for a multi-page experience within a single-page app.
 - **Formik & Yup:** Simplify form management and validation, providing a structured way to handle user inputs and ensuring data integrity.
 - **CodeMirror:** An embeddable code editor that supports a variety of programming languages, integrated to enhance the code editing experience directly within the browser.
+- **Jest:** A JavaScript testing framework that ensures correctness of the application logic with efficient and comprehensive unit and integration testing capabilities.
+- **React Testing Library:** Provides utilities for testing React components, focusing on testing the application’s behavior from a user’s perspective rather than the implementation details.
 
 ## Architecture
 
@@ -127,6 +130,10 @@ ThinkLab's frontend is a sophisticated and highly interactive user interface des
 
 - **Functionality Segregation:** The codebase is structured into distinct modules and features, allowing multiple developers to work on different features simultaneously without conflict. This modular approach helps in managing complexities, especially as the application scales.
 - **Interchangeable Sandboxes:** Development environments for different parts of the application are isolated in sandboxes. This allows developers to test changes and features independently before integration, ensuring that each part of the application can be developed, tested, and debugged in isolation.
+
+### Testing
+
+- **Jest and React Testing Library** Jest and React Testing Library: Integrated into the development process to support unit and component testing, ensuring that each component behaves as expected. This setup helps maintain code quality and stability through automated testing frameworks.
 
 ### Security and Configuration
 
