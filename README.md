@@ -15,7 +15,8 @@
 - **React-Router**
 - **Material-UI**
 - **Emotion**
-- **Jest Testing**
+- **Jest**
+- **React Testing Library**
 
 ## Summary
 
