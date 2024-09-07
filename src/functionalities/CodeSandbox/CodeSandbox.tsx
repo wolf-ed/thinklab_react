@@ -22,8 +22,8 @@ export const CodeSandbox = ({ isAuth = false }: CodeSandboxPropsInterface) => {
   );
   const [output, setOutput] = useState<string>('');
   const [logs, setLogs] = useState<string>('');
-  const [error, setError] = useState<string>(''); // Now it's declared to be used
-  const { executeCode, data } = useCodeSandbox(language);
+  const [error, setError] = useState<string>('');
+  const { executeCode, data, loading } = useCodeSandbox(language);
 
   useEffect(() => {
     const output = data?.CodeSandbox?.result;
@@ -31,7 +31,7 @@ export const CodeSandbox = ({ isAuth = false }: CodeSandboxPropsInterface) => {
     if (output && output !== '[]') {
       setOutput(output);
     } else if (errorInCode && errorInCode !== 'null' && errorInCode !== null) {
-      setError(errorInCode); // Proper use of setError
+      setError(errorInCode);
     }
     if (data?.CodeSandbox?.consoleLogs) {
       setLogs(JSON.stringify(data?.CodeSandbox?.consoleLogs));
@@ -60,7 +60,13 @@ export const CodeSandbox = ({ isAuth = false }: CodeSandboxPropsInterface) => {
       resizeDirection={'horizontal'}
       onChangeUpdateCodeAndLinter={(value: string) => setCode(value)}
       handleSetLanguage={(language: string) => setLanguage(language)}
-      buttonRun={<ButtonRunCode isAuth={isAuth} handleClick={handleClick} />}
+      buttonRun={
+        <ButtonRunCode
+          isAuth={isAuth}
+          handleClick={handleClick}
+          isLoading={loading}
+        />
+      }
     />
   );
 

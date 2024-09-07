@@ -23,7 +23,6 @@ import {
 } from './components/InternalNavigationItems/InternalNavigationItems';
 
 export const LeftDrawer = () => {
-  const isAuth = useSelector(userSelectors.getIsAuth);
   const dispatch = useDispatch();
   const isLeftDrawerOpen = useSelector(getIsLeftDrawerOpen);
 
@@ -48,7 +47,7 @@ export const LeftDrawer = () => {
 
   return (
     <Drawer anchor="left" open={isLeftDrawerOpen} onClose={toggleLeftDrawer()}>
-      {isAuth && localRoutes}
+      {localRoutes}
       <Divider />
       {infoAndHelpRoutes}
     </Drawer>

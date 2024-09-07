@@ -75,6 +75,10 @@ export const EditorItemComponent = ({
               maxLength: 60,
             },
           }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
         />
       </AccordionSummary>
       <AccordionDetails
