@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CodeIcon from '@mui/icons-material/Code';
+import { useSelector } from 'react-redux';
 
 // LOCAL
 import { EditorTypes } from './types';
@@ -17,8 +18,10 @@ import {
 } from './TextAndCodeEditor.styles';
 import { App_Colors } from '../../styles/globalStyles';
 import { CustomToolTip } from '../../components/CustomToolTip/CustomToolTip';
+import { userSelectors } from '../../store/user/userSelectors';
 
 export const TextAndCodeEditor = () => {
+  const isAuth = useSelector(userSelectors.getIsAuth);
   const [title, setTitle] = useState('');
   const [allItems, setAllItems] = useState<ItemCodeOrTextInterface[]>([]);
 
@@ -64,7 +67,9 @@ export const TextAndCodeEditor = () => {
       InputProps={{ style: { height: '56px', marginBottom: '1rem' } }}
     />
   );
-
+  useEffect(() => {
+    console.log('texcodeeditor_isAuth', isAuth);
+  }, []);
   const itemsList = (
     <DragDropContext onDragEnd={handleDragEnd}>
       <CustomDragAndDrop droppableId="items">
@@ -75,6 +80,7 @@ export const TextAndCodeEditor = () => {
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
                     <EditorItemComponent
+                      isAuth={isAuth}
                       provided={provided}
                       item={item}
                       toggleAccordion={toggleAccordion}

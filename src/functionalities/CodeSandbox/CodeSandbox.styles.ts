@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 import { Paper } from '@mui/material';
 
+// LOCAL
+import { Breakpoints_Screen } from '../../styles/globalStyles';
+
 export const MainContainer = styled.div`
   display: flex;
   position: relative;
@@ -10,6 +13,9 @@ export const MainContainer = styled.div`
   min-height: 30rem;
   background-color: #f0f0f0;
   flex-direction: row;
+  ${Breakpoints_Screen.M.DOWN} {
+    flex-direction: column;
+  }
 `;
 
 export const TopRow = styled.div`
@@ -42,7 +48,7 @@ export const OutputLogContainer = styled('div')`
   overflow: auto;
 `;
 
-export const ResizableContainer = styled('div')`
+export const LogsAndResultsContainerStyled = styled('div')`
   overflow: auto;
   width: 100%;
   border: 1px solid #ccc;

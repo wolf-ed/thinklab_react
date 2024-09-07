@@ -22,7 +22,7 @@ export const PortfolioNavigationItem = () => {
   return (
     <NavigationItem
       title={`Alvaro`}
-      externalLink="https://github.com/wolf-ed"
+      externalLink="https://alvaro-e.netlify.app/"
       icon={<WolfIcon iconSize={23} />}
     />
   );

@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { Typography } from '@mui/material';
 import CodeMirror from '@uiw/react-codemirror';
-
 // LOCAL
-import { ResizableBox, BoxHeader } from './CodeBox.style';
+import { CodeboxContainerStyled, BoxHeader } from './CodeBox.style';
 import { CodeStyleTheme, draculaStyleTheme } from './const';
 import {
   BoxSettingsAction,
@@ -14,6 +13,7 @@ import { BoxSettingsMenu } from './BoxSettingsMenu/BoxSettingsMenu';
 import { useDropdownSelector } from '../../../CustomHooks/useDropdownSelector/useDropdownSelector';
 import { JavascriptOption, LanguagesAvailable } from '../const';
 import { getCodeSandboxExtensions } from './utils';
+import { App_Colors } from '../../../styles/globalStyles';
 
 interface CodeBoxPropsInterface {
   codeBoxName: string;
@@ -102,14 +102,16 @@ export const CodeBox = ({
   };
 
   return (
-    <ResizableBox
+    <CodeboxContainerStyled
       width={boxWidth ? boxWidth : '60%'}
       height={boxHeight ?? '300px'}
       isResizable={isBoxResizable}
       resizeDirection={resizeDirection}
     >
       <BoxHeader>
-        <Typography variant="h6">{codeBoxName}</Typography>
+        <Typography variant="h6" color={App_Colors.contrastOne}>
+          {codeBoxName}
+        </Typography>
         {handleSetLanguage && LanguageSelector}
         {buttonRun ? buttonRun : ''}
         <BoxSettingsMenu
@@ -118,7 +120,7 @@ export const CodeBox = ({
         />
       </BoxHeader>
       <CodeMirror
-        key={boxSettingsState.wrapContent ? 'wrapped' : 'unwrapped'}
+        key={'key'}
         value={code}
         height="100%"
         width="100%"
@@ -132,6 +134,6 @@ export const CodeBox = ({
         }}
         readOnly={isReadOnly}
       />
-    </ResizableBox>
+    </CodeboxContainerStyled>
   );
 };

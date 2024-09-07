@@ -20,6 +20,7 @@ import {
   BoxSettingsMenuStateInterface,
 } from './BoxSettingsMenuStateReducer';
 import { findCodeStyleTheme } from '../utils';
+import { App_Colors } from '../../../../styles/globalStyles';
 
 interface BoxSettingsMenuPropsInterface {
   boxSettingsState: BoxSettingsMenuStateInterface;
@@ -71,7 +72,7 @@ export const BoxSettingsMenu = ({
   return (
     <>
       <IconButton onClick={openSettings}>
-        <SettingsIcon />
+        <SettingsIcon sx={{ color: App_Colors.contrastOne }} />
       </IconButton>
       <Menu
         id="settings-menu"
@@ -105,18 +106,6 @@ export const BoxSettingsMenu = ({
           {boxSettingsState.fontSize}
           <Button onClick={() => handleFontSizeChange(1)}>+</Button>
         </MenuItem>
-        {/* <MenuItem>
-          Width
-          <Button onClick={() => handleWidthChange(-10)}>-</Button>
-          {boxSettingsState.width}
-          <Button onClick={() => handleWidthChange(10)}>+</Button>
-        </MenuItem>
-        <MenuItem>
-          Height
-          <Button onClick={() => handleHeightChange(-10)}>-</Button>
-          {boxSettingsState.height}
-          <Button onClick={() => handleHeightChange(10)}>+</Button>
-        </MenuItem> */}
         <MenuItem>
           <FormControlLabel
             control={

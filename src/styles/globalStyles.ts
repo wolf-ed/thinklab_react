@@ -12,7 +12,9 @@ export enum App_Colors {
   backgroundColor = 'black',
   contactBackgroundColor = 'blue',
   thirdColor = '#2288ee',
+  thirdColor2 = '#2270ee',
   textBackground = '#dae8fc',
+  lightGray = 'lightGray',
 }
 
 export const WhiteColorTextStyled = styled.div`

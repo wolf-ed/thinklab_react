@@ -7,7 +7,7 @@ import { ToolTipTitleStyled } from './CustomToolTip.styles';
 
 interface CustomToolTipPropsInterface {
   title: string;
-  content: React.ReactElement | string;
+  content?: React.ReactElement | string;
   withWraper?: boolean;
   children?: React.ReactElement;
   placement?: 'top' | 'bottom';

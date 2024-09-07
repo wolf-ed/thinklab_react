@@ -45,7 +45,7 @@ export function Routes() {
         },
         {
           path: ROUTES_ENUM.CODE_SANDBOX,
-          element: isAuth ? <CodeSandboxPage /> : homePageIfNotAuth,
+          element: isAuth ? <CodeSandboxPage /> : <CodeSandboxPage />,
         },
         {
           path: ROUTES_ENUM.TEXT_EDITOR,
@@ -53,7 +53,11 @@ export function Routes() {
         },
         {
           path: ROUTES_ENUM.TEXT_AND_CODE_EDITOR,
-          element: isAuth ? <TextAndCodeEditorPage /> : homePageIfNotAuth,
+          element: isAuth ? (
+            <TextAndCodeEditorPage />
+          ) : (
+            <TextAndCodeEditorPage />
+          ),
         },
       ],
     },

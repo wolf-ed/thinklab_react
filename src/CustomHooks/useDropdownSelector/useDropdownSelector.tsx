@@ -1,5 +1,14 @@
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import {
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
 import { useState } from 'react';
+
+// LOCAL
+import { App_Colors } from '../../styles/globalStyles';
 
 export interface OptionForDropDown {
   name: string;
@@ -21,32 +30,58 @@ export const useDropdownSelector = ({
 
   const handleOnChange = (event: SelectChangeEvent<string>) => {
     setSelected(event.target.value);
-    return;
-    // const optionSelected = findSelectedOption(options, event.target.value);
-    // if (optionSelected) {
-    //   setSelected(optionSelected.name);
-    // }
   };
 
   return {
     selected,
     Dropdown: (
-      <Select
-        labelId={labelId}
-        id={labelId}
-        onChange={handleOnChange}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        value={selected}
-        label="Select Theme:"
-      >
-        {options.map((option) => (
-          <MenuItem key={`dropdownSelector_${option}`} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
+      <FormControl>
+        <InputLabel
+          id={labelId}
+          sx={{
+            marginTop: '5px',
+            color: App_Colors.contrastColor,
+            '&.Mui-focused': { color: 'grey' },
+          }}
+        >
+          {labelId}
+        </InputLabel>
+        <Select
+          labelId={labelId}
+          sx={{
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'grey',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'grey',
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: App_Colors.contrastColor,
+            },
+            '& .MuiSelect-select': {
+              color: App_Colors.contrastColor,
+            },
+            '& .MuiSvgIcon-root': {
+              color: App_Colors.contrastColor,
+            },
+          }}
+          id={labelId}
+          onChange={handleOnChange}
+          onClick={(e) => e.stopPropagation()}
+          value={selected}
+          label={labelId}
+        >
+          {options.map((option) => (
+            <MenuItem
+              key={`dropdownSelector_${option}`}
+              value={option}
+              sx={{ color: 'black' }}
+            >
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     ),
   };
 };

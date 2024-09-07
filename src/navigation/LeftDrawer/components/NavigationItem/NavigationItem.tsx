@@ -3,6 +3,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
+// LOCAL
 import { ROUTES_ENUM } from '../../../const';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { App_Colors } from '../../../../styles/globalStyles';
@@ -29,7 +31,7 @@ export const NavigationItem = ({
   }, [location.pathname, setIsActive, route]);
 
   const styledIcon = React.cloneElement(icon as React.ReactElement, {
-    sx: { color: isActive ? App_Colors.contrastColor : 'black' }, // Color changes if active
+    sx: { color: isActive ? App_Colors.contrastColor : 'black' },
   });
 
   const handleClick = () => {
@@ -40,9 +42,13 @@ export const NavigationItem = ({
     }
   };
 
+  const hrefIfExternalLink = {
+    ...(externalLink ? { href: externalLink } : {}),
+  };
   return (
     <ListItem key={title} disablePadding>
       <ListItemButton
+        {...hrefIfExternalLink}
         onClick={handleClick}
         sx={{
           bgcolor: isActive ? App_Colors.dark : 'inherit',

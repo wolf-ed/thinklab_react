@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 import { Paper } from '@mui/material';
 
+// LOCAL
+import { Breakpoints_Screen } from '../../../styles/globalStyles';
+
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,25 +24,45 @@ export const BottomRow = styled.div`
   justify-content: space-between;
 `;
 
-interface ResizableBoxProps {
+interface CodeboxContainerStyledPropsInterface {
   height?: string;
-  width: string; // Width is required
+  width: string;
   isResizable: boolean;
   resizeDirection?: 'horizontal' | 'vertical';
 }
 
-export const ResizableBox = styled('div')<ResizableBoxProps>(
+export const CodeboxContainerStyled = styled(
+  'div'
+)<CodeboxContainerStyledPropsInterface>(
   ({ height, width, isResizable, resizeDirection }) => ({
-    // minWidth: '0%',
-    // maxWidth: '100%',
     position: 'relative',
     width: width,
-    height: height ?? 'auto',
+    height: height ?? 'fit-content',
+    maxHeight: 'fit-content',
+    minHeight: '5rem',
     resize: isResizable ? resizeDirection : 'none',
     overflow: 'auto',
     border: '1px solid #ccc',
-    maxHeight: '90vh',
+
+    paddingBottom: '0.5rem',
     overflowY: 'hidden',
+    maxWidth: '95vw',
+    [Breakpoints_Screen.M.DOWN]: {
+      width: '100%',
+      paddingBottom: '2.5rem',
+    },
+    '& *': {
+      '&::-webkit-scrollbar': {
+        width: '0.8rem',
+      },
+      '&::-webkit-scrollbar-track': {
+        background: '#f1f1f1',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#90a4ae',
+        borderRadius: '4px',
+      },
+    },
   })
 );
 
