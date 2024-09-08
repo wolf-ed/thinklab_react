@@ -26,7 +26,7 @@ export function Routes() {
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       children: [
-        { path: '', element: isAuth ? homePageIfAuth : homePageIfNotAuth },
+        { path: '', element: isAuth ? homePageIfAuth : homePageIfAuth },
         // {
         //   path: ROUTES_ENUM.AUTH,
         //   element: isAuth ? homePageIfAuth : <SignUpOrLogInPage />,
@@ -41,7 +41,7 @@ export function Routes() {
         // },
         {
           path: ROUTES_ENUM.HOME,
-          element: isAuth ? homePageIfAuth : homePageIfNotAuth,
+          element: homePageIfAuth,
         },
         {
           path: ROUTES_ENUM.CODE_SANDBOX,
@@ -49,7 +49,7 @@ export function Routes() {
         },
         {
           path: ROUTES_ENUM.TEXT_EDITOR,
-          element: isAuth ? <TextEditorPage /> : homePageIfNotAuth,
+          element: <TextEditorPage />,
         },
         {
           path: ROUTES_ENUM.TEXT_AND_CODE_EDITOR,
