@@ -7,10 +7,7 @@ import Divider from '@mui/material/Divider';
 
 // LOCAL
 import { setIsLetDrawerOpen } from '../../store/user/userSlice';
-import {
-  getIsLeftDrawerOpen,
-  userSelectors,
-} from '../../store/user/userSelectors';
+import { getIsLeftDrawerOpen } from '../../store/user/userSelectors';
 import { useSelector } from 'react-redux';
 import {
   GithubNavigationItem,

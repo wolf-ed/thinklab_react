@@ -27,18 +27,18 @@ export function Routes() {
       errorElement: <ErrorPage />,
       children: [
         { path: '', element: isAuth ? homePageIfAuth : homePageIfNotAuth },
-        {
-          path: ROUTES_ENUM.AUTH,
-          element: isAuth ? homePageIfAuth : <SignUpOrLogInPage />,
-        },
-        {
-          path: ROUTES_ENUM.SIGN_UP,
-          element: isAuth ? homePageIfAuth : <SignUpPage />,
-        },
-        {
-          path: ROUTES_ENUM.LOG_IN,
-          element: isAuth ? homePageIfAuth : <LogInPage />,
-        },
+        // {
+        //   path: ROUTES_ENUM.AUTH,
+        //   element: isAuth ? homePageIfAuth : <SignUpOrLogInPage />,
+        // },
+        // {
+        //   path: ROUTES_ENUM.SIGN_UP,
+        //   element: isAuth ? homePageIfAuth : <SignUpPage />,
+        // },
+        // {
+        //   path: ROUTES_ENUM.LOG_IN,
+        //   element: isAuth ? homePageIfAuth : <LogInPage />,
+        // },
         {
           path: ROUTES_ENUM.HOME,
           element: isAuth ? homePageIfAuth : homePageIfNotAuth,

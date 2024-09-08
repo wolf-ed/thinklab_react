@@ -118,7 +118,8 @@ export const TopNavBar = () => {
         <Toolbar>
           {leftSideButtons}
           {boxThatExpandsToSeparateLeftAndRightSide}
-          {isAuth ? accountIconButton : <TopRightOptions />}
+          {/* {isAuth ? accountIconButton : <TopRightOptions />} */}
+          {accountIconButton}
         </Toolbar>
         <LeftDrawer />
       </AppBar>
