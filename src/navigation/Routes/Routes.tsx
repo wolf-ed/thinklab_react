@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router-dom';
 
 //My Pages
-import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
+// import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
 
 import { RootLayout } from '../RootLayout/RootLayout';
 import { ROUTES_ENUM } from '../const';
@@ -10,8 +10,8 @@ import { ErrorPage } from '../../pages/ErrorPage/ErrorPage';
 import { CodeSandboxPage } from '../../pages/CodeSandbox/CodeSandboxPage';
 import { TextEditorPage } from '../../pages/TextEditorPage/TextEditorPage';
 import { TextAndCodeEditorPage } from '../../pages/TextAndCodeEditorPage/TextAndCodeEditorPage';
-import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
-import { LogInPage } from '../../pages/LogInPage/LogInPage';
+// import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
+// import { LogInPage } from '../../pages/LogInPage/LogInPage';
 import { useSelector } from 'react-redux';
 import { userSelectors } from '../../store/user/userSelectors';
 
@@ -19,7 +19,7 @@ export function Routes() {
   const isAuth = useSelector(userSelectors.getIsAuth);
 
   const homePageIfAuth = <TextAndCodeEditorPage />;
-  const homePageIfNotAuth = <SignUpOrLogInPage />;
+  // const homePageIfNotAuth = <SignUpOrLogInPage />;
   const router = createBrowserRouter([
     {
       path: ROUTES_ENUM.HOME,

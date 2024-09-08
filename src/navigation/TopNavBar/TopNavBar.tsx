@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 //MUI
@@ -20,13 +20,13 @@ import { ROUTES_ENUM } from '../const';
 import { App_Colors } from '../../styles/globalStyles';
 import { AppNameStyled } from './TopNavBar.styles';
 import { useAuth } from '../../hooks/useAuth/useAuth';
-import { TopRightOptions } from './components/TopRightOptions/TopRightOptions';
-import { userSelectors } from '../../store/user/userSelectors';
+// import { TopRightOptions } from './components/TopRightOptions/TopRightOptions';
+// import { userSelectors } from '../../store/user/userSelectors';
 
 export const TopNavBar = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
-  const isAuth = useSelector(userSelectors.getIsAuth);
+  // const isAuth = useSelector(userSelectors.getIsAuth);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
