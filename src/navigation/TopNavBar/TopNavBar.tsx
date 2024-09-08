@@ -60,7 +60,14 @@ export const TopNavBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate(ROUTES_ENUM.USER_ACCOUNT);
+          handleMenuClose();
+        }}
+      >
+        My account
+      </MenuItem>
       <MenuItem
         onClick={() => {
           auth.logOutUser();

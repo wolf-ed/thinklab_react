@@ -11,9 +11,10 @@ import { CodeSandboxPage } from '../../pages/CodeSandbox/CodeSandboxPage';
 import { TextEditorPage } from '../../pages/TextEditorPage/TextEditorPage';
 import { TextAndCodeEditorPage } from '../../pages/TextAndCodeEditorPage/TextAndCodeEditorPage';
 // import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
-// import { LogInPage } from '../../pages/LogInPage/LogInPage';
+import { LogInPage } from '../../pages/LogInPage/LogInPage';
 import { useSelector } from 'react-redux';
 import { userSelectors } from '../../store/user/userSelectors';
+import { UserAccountPage } from '../../pages/UserAccountPage/UserAccountPage';
 
 export function Routes() {
   const isAuth = useSelector(userSelectors.getIsAuth);
@@ -35,10 +36,10 @@ export function Routes() {
         //   path: ROUTES_ENUM.SIGN_UP,
         //   element: isAuth ? homePageIfAuth : <SignUpPage />,
         // },
-        // {
-        //   path: ROUTES_ENUM.LOG_IN,
-        //   element: isAuth ? homePageIfAuth : <LogInPage />,
-        // },
+        {
+          path: ROUTES_ENUM.LOG_IN,
+          element: isAuth ? homePageIfAuth : <LogInPage />,
+        },
         {
           path: ROUTES_ENUM.HOME,
           element: homePageIfAuth,
@@ -58,6 +59,10 @@ export function Routes() {
           ) : (
             <TextAndCodeEditorPage />
           ),
+        },
+        {
+          path: ROUTES_ENUM.USER_ACCOUNT,
+          element: <UserAccountPage />,
         },
       ],
     },

@@ -9,4 +9,5 @@ export enum ROUTES_ENUM {
   TEXT_EDITOR = '/textEditor',
   TEXT_AND_CODE_EDITOR = '/textAndCodeEditor',
   ERROR = '/error',
+  USER_ACCOUNT = 'account',
 }
