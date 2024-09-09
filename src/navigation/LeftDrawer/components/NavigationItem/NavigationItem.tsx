@@ -35,15 +35,15 @@ export const NavigationItem = ({
   });
 
   const handleClick = () => {
-    if (externalLink) {
-      window.open(externalLink, '_blank');
-    } else if (route) {
+    if (route) {
       navigate(route);
     }
   };
 
   const hrefIfExternalLink = {
-    ...(externalLink ? { href: externalLink } : {}),
+    ...(externalLink
+      ? { href: externalLink, target: '_blank', rel: 'noopener noreferrer' }
+      : {}),
   };
   return (
     <ListItem key={title} disablePadding>
