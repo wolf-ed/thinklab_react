@@ -13,9 +13,13 @@ import { ButtonRunCode } from './ButtonRunCode/ButtonRunCode';
 
 interface CodeSandboxPropsInterface {
   isAuth?: boolean;
+  updateContent?: (code: string) => void;
 }
 
-export const CodeSandbox = ({ isAuth = false }: CodeSandboxPropsInterface) => {
+export const CodeSandbox = ({
+  isAuth = false,
+  updateContent,
+}: CodeSandboxPropsInterface) => {
   const [code, setCode] = useState<string>(initialCodeState);
   const [language, setLanguage] = useState<string>(
     Languages_Sandbox_enum.JAVASCRIPT
@@ -58,7 +62,12 @@ export const CodeSandbox = ({ isAuth = false }: CodeSandboxPropsInterface) => {
       boxWidth={'150%'}
       boxHeight={'100%'}
       resizeDirection={'horizontal'}
-      onChangeUpdateCodeAndLinter={(value: string) => setCode(value)}
+      onChangeUpdateCodeAndLinter={(value: string) => {
+        setCode(value);
+        if (updateContent) {
+          updateContent(value);
+        }
+      }}
       handleSetLanguage={(language: string) => setLanguage(language)}
       buttonRun={
         <ButtonRunCode

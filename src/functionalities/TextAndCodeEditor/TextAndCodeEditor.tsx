@@ -50,6 +50,11 @@ export const TextAndCodeEditor = () => {
       allItems.map((el) => (el.id === id ? { ...el, title: newTitle } : el))
     );
   };
+  const handleItemContentChange = (id: string, newContent: string) => {
+    setAllItems(
+      allItems.map((el) => (el.id === id ? { ...el, content: newContent } : el))
+    );
+  };
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const items = Array.from(allItems);
@@ -85,6 +90,9 @@ export const TextAndCodeEditor = () => {
                       item={item}
                       toggleAccordion={toggleAccordion}
                       handleItemTitleChange={handleItemTitleChange}
+                      updateContent={(newContent: string) => {
+                        handleItemContentChange(item.id, newContent);
+                      }}
                     />
                   )}
                 </Draggable>

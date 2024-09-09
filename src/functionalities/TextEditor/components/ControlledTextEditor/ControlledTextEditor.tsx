@@ -1,8 +1,11 @@
-import { useState } from 'react';
-
 import TextEditor from '../../TextEditor';
 
-export const ControlledTextEditor = () => {
-  const [, setText] = useState('');
-  return <TextEditor setTextEditorValue={setText} reset={false} />;
+interface ControlledTextEditorPropsInterface {
+  updateContent: (content: string) => void;
+}
+
+export const ControlledTextEditor = ({
+  updateContent,
+}: ControlledTextEditorPropsInterface) => {
+  return <TextEditor setTextEditorValue={updateContent} reset={false} />;
 };

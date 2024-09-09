@@ -15,6 +15,7 @@ export interface EditorItemPropsInterface {
   toggleAccordion: (id: string) => void;
   handleItemTitleChange: (id: string, newTitle: string) => void;
   isAuth?: boolean;
+  updateContent: (content: string) => void;
 }
 
 export const EditorItemComponent = ({
@@ -23,6 +24,7 @@ export const EditorItemComponent = ({
   toggleAccordion,
   handleItemTitleChange,
   isAuth = false,
+  updateContent,
 }: EditorItemPropsInterface) => {
   const isCodeEditor = item.type === EditorTypes.CODE;
   const textColor = isCodeEditor ? App_Colors.contrastColor : App_Colors.text;
@@ -88,9 +90,9 @@ export const EditorItemComponent = ({
         }}
       >
         {item.type === EditorTypes.CODE ? (
-          <CodeSandbox isAuth={isAuth} />
+          <CodeSandbox isAuth={isAuth} updateContent={updateContent} />
         ) : (
-          <ControlledTextEditor />
+          <ControlledTextEditor updateContent={updateContent} />
         )}
       </AccordionDetails>
     </Accordion>
