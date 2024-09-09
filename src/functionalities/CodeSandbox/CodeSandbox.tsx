@@ -12,8 +12,8 @@ import { initialCodeState, Languages_Sandbox_enum } from './const';
 import { ButtonRunCode } from './ButtonRunCode/ButtonRunCode';
 
 interface CodeSandboxPropsInterface {
-  isAuth?: boolean;
-  updateContent?: (code: string) => void;
+  isAuth: boolean;
+  updateContent: (content: string) => void;
 }
 
 export const CodeSandbox = ({
