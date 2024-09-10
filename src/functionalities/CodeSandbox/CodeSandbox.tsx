@@ -13,8 +13,8 @@ import { ButtonRunCode } from './ButtonRunCode/ButtonRunCode';
 
 interface CodeSandboxPropsInterface {
   isAuth?: boolean;
-  updateContent: (content: string) => void;
-  content: string;
+  updateContent?: (content: string) => void;
+  content?: string;
 }
 
 export const CodeSandbox = ({
