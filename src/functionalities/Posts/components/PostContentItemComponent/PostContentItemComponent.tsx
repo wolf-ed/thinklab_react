@@ -20,12 +20,7 @@ export const DisplayEditorItemComponent = ({
     finalContent = <>corrupted document</>;
   }
   if (type === 'code') {
-    finalContent = (
-      <CodeSandbox
-        content={postContentItem}
-        updateContent={(content: string) => {}}
-      />
-    );
+    finalContent = <CodeSandbox content={postContentItem} />;
   } else if (type === 'text') {
     finalContent = <>{parse(postContentItem)}</>;
   }
