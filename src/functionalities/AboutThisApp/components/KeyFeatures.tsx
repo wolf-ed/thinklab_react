@@ -1,11 +1,4 @@
-import {
-  Typography,
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Paper,
-} from '@mui/material';
+import { Typography, List, ListItem, ListItemText, Paper } from '@mui/material';
 
 export const KeyFeatures = () => {
   return (
