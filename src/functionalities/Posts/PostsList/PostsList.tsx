@@ -10,7 +10,26 @@ export const PostsList = () => {
   const { loading, error, getPosts } = useGetPosts();
 
   useEffect(() => {
+    // Function to log the current time in hh:mm format
+    const logCurrentTime = () => {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      console.log(`getPosts called at: ${hours}:${minutes}`);
+    };
+
+    // Initial call to getPosts and log time
     getPosts(null);
+    logCurrentTime();
+
+    // Set interval to call getPosts and log time every 10 minutes (600,000 milliseconds)
+    const intervalId = setInterval(() => {
+      getPosts(null);
+      logCurrentTime();
+    }, 600000); // 10 minutes
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
   }, []);
 
   if (loading) {
