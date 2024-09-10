@@ -14,6 +14,7 @@ interface NavigationItemPropsInterface {
   route?: ROUTES_ENUM;
   icon: React.ReactNode;
   externalLink?: string;
+  onClick: () => void;
 }
 
 export const NavigationItem = ({
@@ -21,6 +22,7 @@ export const NavigationItem = ({
   route,
   icon,
   externalLink,
+  onClick,
 }: NavigationItemPropsInterface) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,6 +37,7 @@ export const NavigationItem = ({
   });
 
   const handleClick = () => {
+    onClick();
     if (route) {
       navigate(route);
     }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
@@ -5,6 +6,7 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { CustomToolTip } from '../../../components/CustomToolTip/CustomToolTip';
 import { App_Colors } from '../../../styles/globalStyles';
 import { ButotnIconStyled } from './ButtonRunCode.styles';
+import { ENV_IS_PROD } from '../../../envConsts';
 
 interface ButtonRunCodePropsInterface {
   isAuth: boolean;
@@ -13,16 +15,32 @@ interface ButtonRunCodePropsInterface {
 }
 
 export const ButtonRunCode = ({
-  isAuth,
   handleClick,
   isLoading,
+  isAuth,
 }: ButtonRunCodePropsInterface) => {
+  const tooltipInitialState = isAuth
+    ? 'Run your code!'
+    : 'Log in to run the code!';
+  const [tooltipText, setTooltipText] = useState(tooltipInitialState);
+
+  const onClick = () => {
+    handleClick();
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      setTooltipText('Waking up the server and executing the code...');
+    }
+    if (!isLoading) {
+      setTooltipText(tooltipInitialState);
+    }
+  }, [isLoading, isAuth]);
+
   return (
-    <CustomToolTip
-      title={isAuth ? 'Execute your code' : 'Log in to run the code'}
-    >
+    <CustomToolTip title={ENV_IS_PROD ? 'Log in!' : tooltipText}>
       <Button
-        disabled={!isAuth || isLoading}
+        disabled={!isAuth || isLoading || ENV_IS_PROD}
         variant="contained"
         sx={{
           backgroundColor: isAuth
@@ -41,7 +59,7 @@ export const ButtonRunCode = ({
             color: 'rgba(0, 0, 0, 0.38)',
           },
         }}
-        onClick={handleClick}
+        onClick={onClick}
       >
         RUN
         <ButotnIconStyled>

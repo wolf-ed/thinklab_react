@@ -22,6 +22,7 @@ import { CustomToolTip } from '../../components/CustomToolTip/CustomToolTip';
 import { userSelectors } from '../../store/user/userSelectors';
 import { SavePostPropsInterface } from './types';
 import { useSavePost } from './useSavePost';
+import { ENV_IS_PROD } from '../../envConsts';
 
 export const TextAndCodeEditor = () => {
   const isAuth = useSelector(userSelectors.getIsAuth);
@@ -116,6 +117,11 @@ export const TextAndCodeEditor = () => {
     </DragDropContext>
   );
 
+  const conditionIfUserIsAuthAndIsNotProd =
+    title || allItems.length > 0
+      ? 'Save post'
+      : 'You need a title and at least 1 item!';
+
   const buttons = (
     <ButtonsContainerStyled>
       <CustomToolTip title={'Add a Text Editor Item'}>
@@ -144,18 +150,16 @@ export const TextAndCodeEditor = () => {
         </Button>
       </CustomToolTip>
       <CustomToolTip
-        title={'You need to Log in!'}
-        // title={
-        //   title || allItems.length > 0
-        //     ? 'Save post'
-        //     : 'You need a title and at least 1 item!'
-        // }
+        title={
+          isAuth && !ENV_IS_PROD
+            ? conditionIfUserIsAuthAndIsNotProd
+            : 'You need to log in!'
+        }
       >
         <Button
           onClick={handleSave}
           variant="contained"
-          // disabled={!title || allItems.length === 0}
-          disabled={true}
+          disabled={!title || allItems.length === 0 || ENV_IS_PROD || !isAuth}
           sx={{
             backgroundColor: App_Colors.secondColor,
             color: App_Colors.mainColor,

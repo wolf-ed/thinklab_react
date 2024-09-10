@@ -8,6 +8,7 @@ const initialState: CustomSnackBarProps = {
   actionText: '',
   duration: 250,
   position: 'bottom',
+  severity: 'info',
 };
 
 const snackbarNotificationSlice = createSlice({
@@ -16,7 +17,6 @@ const snackbarNotificationSlice = createSlice({
   reducers: {
     showSnackbar: (state, action: PayloadAction<UseSnackbarProps>) => {
       state.isVisible = true;
-      console.log('showSnackBar');
       Object.entries(action.payload).forEach(([key, value]) => {
         if (key in state) {
           Object.assign(state, { [key]: value });

@@ -1,29 +1,27 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import styled from '@emotion/styled';
 
 // LOCAL
 import { decodePostContent } from '../utils';
 import { PostContentDecodedInterface } from '../types';
 import { PostInterfaceEncoded } from '../../TextAndCodeEditor/types';
 import { DisplayEditorItemComponent } from '../components/PostContentItemComponent/PostContentItemComponent';
+import { PostTitleStyled } from './PostTile.styles';
 
 interface PostTileProps {
   postItem: PostInterfaceEncoded;
 }
 
-export const ContainerStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const PostTile: React.FC<PostTileProps> = ({ postItem }) => {
   const contentItems: PostContentDecodedInterface[] | null = decodePostContent(
     postItem.content
   );
-  if (!contentItems) return <>corrupted post</>;
+  if (!contentItems)
+    return (
+      <Typography variant="body1" color="error" textAlign="center">
+        Error reading post
+      </Typography>
+    );
   return (
     <Card
       key={postItem.id}
@@ -31,9 +29,7 @@ export const PostTile: React.FC<PostTileProps> = ({ postItem }) => {
       sx={{ minWidth: '90vw', maxWidth: 'fit-content' }}
     >
       <CardContent>
-        <Typography gutterBottom variant="h2" component="div">
-          {postItem.title}
-        </Typography>
+        <PostTitleStyled>{postItem.title}</PostTitleStyled>
         {contentItems?.map((postContentItem: PostContentDecodedInterface) => {
           return (
             <DisplayEditorItemComponent

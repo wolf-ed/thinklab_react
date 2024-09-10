@@ -7,65 +7,86 @@ import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import { NavigationItem } from '../NavigationItem/NavigationItem';
 import { ROUTES_ENUM } from '../../../const';
 
+export interface NavigationItemPropsInterface {
+  onClick: () => void;
+}
 /**
  * LOCAL ROUTE ITEMS
  */
-export const TextAndCodeEditorNavigationItem = () => {
+export const TextAndCodeEditorNavigationItem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       title={`Text-Code Editor`}
       route={ROUTES_ENUM.TEXT_AND_CODE_EDITOR}
       icon={<BiotechIcon />}
+      onClick={onClick}
     />
   );
 };
 
-export const TextEditorNavigationItem = () => {
+export const TextEditorNavigationItem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       title={`Text Editor`}
       route={ROUTES_ENUM.TEXT_EDITOR}
       icon={<DriveFileRenameOutlineIcon />}
+      onClick={onClick}
     />
   );
 };
 
-export const CodeEditorNavigationItem = () => {
+export const CodeEditorNavigationItem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       title={`Code Editor`}
       route={ROUTES_ENUM.CODE_SANDBOX}
       icon={<CodeIcon />}
+      onClick={onClick}
     />
   );
 };
 
-export const SignUpNavigationItem = () => {
+export const SignUpNavigationItem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       title={`Sign up`}
       route={ROUTES_ENUM.SIGN_UP}
       icon={<CodeIcon />}
+      onClick={onClick}
     />
   );
 };
 
-export const PostsListNavigationItem = () => {
+export const PostsListNavigationItem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       title={`Posts`}
       route={ROUTES_ENUM.POSTS}
       icon={<DynamicFeedIcon />}
+      onClick={onClick}
     />
   );
 };
 
-export const ErrorNavigationITem = () => {
+export const ErrorNavigationITem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       title={`Error`}
       route={ROUTES_ENUM.ERROR}
       icon={<CodeIcon />}
+      onClick={onClick}
     />
   );
 };

@@ -1,6 +1,6 @@
 export enum ROUTES_ENUM {
   HOME = '/',
-  POSTS = 'posts',
+  POSTS = '/posts',
   AUTH = '/auth',
   LOG_IN = '/login',
   SIGN_UP = '/signup',
@@ -9,5 +9,7 @@ export enum ROUTES_ENUM {
   TEXT_EDITOR = '/textEditor',
   TEXT_AND_CODE_EDITOR = '/textAndCodeEditor',
   ERROR = '/error',
-  USER_ACCOUNT = 'account',
+  USER_ACCOUNT = '/account',
+  PRIVACY_POLICY = '/privacy-policy',
+  ABOUT = '/about',
 }

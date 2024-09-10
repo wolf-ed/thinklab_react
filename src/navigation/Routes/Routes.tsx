@@ -17,6 +17,9 @@ import { userSelectors } from '../../store/user/userSelectors';
 import { UserAccountPage } from '../../pages/UserAccountPage/UserAccountPage';
 import { PostsListPage } from '../../pages/PostsListPage/PostsListPage';
 import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
+import { SignUpPage } from '../../pages/SignUpPage/SignUpPage';
+import { PrivacyPolicyPage } from '../../pages/PrivacyPolicyPage/PrivacyPolicyPage';
+import { AboutPage } from '../../pages/AboutPage/AboutPage';
 
 export function Routes() {
   const isAuth = useSelector(userSelectors.getIsAuth);
@@ -30,13 +33,21 @@ export function Routes() {
       errorElement: <ErrorPage />,
       children: [
         { path: '', element: isAuth ? homePageIfAuth : homePageIfAuth },
-        // {
-        //   path: ROUTES_ENUM.AUTH,
-        //   element: isAuth ? homePageIfAuth : <SignUpOrLogInPage />,
-        // },
+        {
+          path: ROUTES_ENUM.PRIVACY_POLICY,
+          element: isAuth ? homePageIfAuth : <PrivacyPolicyPage />,
+        },
+        {
+          path: ROUTES_ENUM.ABOUT,
+          element: <AboutPage />,
+        },
+        {
+          path: ROUTES_ENUM.AUTH,
+          element: isAuth ? homePageIfAuth : <SignUpOrLogInPage />,
+        },
         {
           path: ROUTES_ENUM.SIGN_UP,
-          element: <LogInPage />,
+          element: <SignUpPage />,
         },
         {
           path: ROUTES_ENUM.AUTH,

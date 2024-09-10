@@ -20,6 +20,8 @@ import { ROUTES_ENUM } from '../const';
 import { App_Colors } from '../../styles/globalStyles';
 import { AppNameStyled } from './TopNavBar.styles';
 import { useAuth } from '../../hooks/useAuth/useAuth';
+import { TopRightOptions } from './components/TopRightOptions/TopRightOptions';
+import { ENV_IS_PROD } from '../../envConsts';
 // import { TopRightOptions } from './components/TopRightOptions/TopRightOptions';
 // import { userSelectors } from '../../store/user/userSelectors';
 
@@ -121,12 +123,17 @@ export const TopNavBar = () => {
 
   return (
     <StyledMainNavigation>
-      <AppBar position="static" sx={{ backgroundColor: App_Colors.dark }}>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: App_Colors.dark,
+        }}
+      >
         <Toolbar>
           {leftSideButtons}
           {boxThatExpandsToSeparateLeftAndRightSide}
-          {/* {isAuth ? accountIconButton : <TopRightOptions />} */}
-          {accountIconButton}
+          {<TopRightOptions />}
+          {!ENV_IS_PROD && accountIconButton}
         </Toolbar>
         <LeftDrawer />
       </AppBar>

@@ -24,6 +24,10 @@ export const TopRightOptions = () => {
     navigate(ROUTES_ENUM.SIGN_UP);
   };
 
+  const handlePrivacyPolicy = () => {
+    navigate(ROUTES_ENUM.PRIVACY_POLICY);
+  };
+
   if (isAuth) {
     return <StyledOptionsBox>{'User is logged in'}</StyledOptionsBox>;
   }
@@ -35,6 +39,9 @@ export const TopRightOptions = () => {
       </Button>
       <Button color="inherit" onClick={handleSignUp} variant="outlined">
         Sign Up
+      </Button>
+      <Button color="inherit" onClick={handlePrivacyPolicy} variant="outlined">
+        Privacy Policy
       </Button>
     </StyledOptionsBox>
   );

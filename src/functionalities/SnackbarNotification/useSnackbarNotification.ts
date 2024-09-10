@@ -1,5 +1,4 @@
 import { CustomSnackBarProps } from '../../components/CustomSnackbar/CustomSnackbar';
-
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { showSnackbar } from '../../store/snackbarNotification/snackbarNotificationSlice';
@@ -7,7 +6,7 @@ import { showSnackbar } from '../../store/snackbarNotification/snackbarNotificat
 export interface UseSnackbarProps
   extends Pick<
     CustomSnackBarProps,
-    'message' | 'actionText' | 'position' | 'duration' | 'actionText'
+    'message' | 'actionText' | 'position' | 'duration' | 'severity'
   > {}
 
 export const useSnackbarNotification = () => {

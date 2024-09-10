@@ -1,17 +1,19 @@
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import Drawer from '@mui/material/Drawer';
-
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 
 // LOCAL
 import { setIsLetDrawerOpen } from '../../store/user/userSlice';
 import { getIsLeftDrawerOpen } from '../../store/user/userSelectors';
-import { useSelector } from 'react-redux';
 import {
+  AboutNavigationItem,
   GithubNavigationItem,
   PortfolioNavigationItem,
+  PrivacyNavigationItem,
 } from './components/ExternalNavigationItems/ExternalNavigationItems';
 import {
   CodeEditorNavigationItem,
@@ -20,35 +22,58 @@ import {
   TextEditorNavigationItem,
 } from './components/InternalNavigationItems/InternalNavigationItems';
 
+const drawerWidth = 240; // Define the drawer width if needed
+
 export const LeftDrawer = () => {
   const dispatch = useDispatch();
   const isLeftDrawerOpen = useSelector(getIsLeftDrawerOpen);
 
-  const toggleLeftDrawer = () => () => {
+  const toggleLeftDrawer = () => {
     dispatch(setIsLetDrawerOpen());
   };
 
   const localRoutes = (
     <List>
-      <TextAndCodeEditorNavigationItem />
-      <TextEditorNavigationItem />
-      <CodeEditorNavigationItem />
-      <PostsListNavigationItem />
+      <TextAndCodeEditorNavigationItem onClick={toggleLeftDrawer} />
+      <TextEditorNavigationItem onClick={toggleLeftDrawer} />
+      <CodeEditorNavigationItem onClick={toggleLeftDrawer} />
+      <PostsListNavigationItem onClick={toggleLeftDrawer} />
     </List>
   );
 
   const infoAndHelpRoutes = (
     <List>
-      <GithubNavigationItem />
-      <PortfolioNavigationItem />
+      <GithubNavigationItem onClick={toggleLeftDrawer} />
+      <PortfolioNavigationItem onClick={toggleLeftDrawer} />
+      <AboutNavigationItem onClick={toggleLeftDrawer} />
+      <PrivacyNavigationItem onClick={toggleLeftDrawer} />
     </List>
   );
 
   return (
-    <Drawer anchor="left" open={isLeftDrawerOpen} onClose={toggleLeftDrawer()}>
-      {localRoutes}
-      <Divider />
-      {infoAndHelpRoutes}
-    </Drawer>
+    <Box sx={{ display: 'flex' }}>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      ></AppBar>
+      <Drawer
+        anchor="left"
+        open={isLeftDrawerOpen}
+        onClose={toggleLeftDrawer}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+      >
+        <Toolbar />
+        {localRoutes}
+        <Divider />
+        {infoAndHelpRoutes}
+      </Drawer>
+    </Box>
   );
 };

@@ -55,23 +55,24 @@ export const useSavePost = () => {
       });
 
       if (data && data.SavePost) {
-        console.log('Post created/updated successfully:', data.SavePost);
         snackbarNotif.showSnackbar({
           message: 'Post created successfully',
           duration: 3000,
+          severity: 'success',
         });
         return data.SavePost;
       } else {
         snackbarNotif.showSnackbar({
           message: 'Post could not be saved',
           duration: 3000,
+          severity: 'error',
         });
-        console.log('Post failed or data missing');
       }
     } catch (e) {
       snackbarNotif.showSnackbar({
         message: 'Post could not be saved',
         duration: 3000,
+        severity: 'error',
       });
     }
   };
