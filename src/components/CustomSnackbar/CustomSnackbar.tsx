@@ -1,4 +1,4 @@
-import { Snackbar, Button } from '@mui/material';
+import { Snackbar, Button, Alert } from '@mui/material';
 
 export interface CustomSnackBarProps {
   isVisible: boolean;
@@ -8,6 +8,7 @@ export interface CustomSnackBarProps {
   action?: () => void;
   duration?: number;
   position?: 'top' | 'bottom';
+  severity?: 'error' | 'warning' | 'info' | 'success';
 }
 
 export const CustomSnackBar = ({
@@ -17,6 +18,7 @@ export const CustomSnackBar = ({
   position = 'bottom',
   duration,
   actionText = '',
+  severity = 'info',
   onDismissSnackBar = () => {},
 }: CustomSnackBarProps) => {
   const snackbarPosition = {
@@ -29,15 +31,21 @@ export const CustomSnackBar = ({
       open={isVisible}
       autoHideDuration={duration ?? 2500}
       onClose={onDismissSnackBar}
-      message={snackText}
       anchorOrigin={snackbarPosition}
-      action={
-        actionText && (
-          <Button color="secondary" size="small" onClick={action}>
-            {actionText}
-          </Button>
-        )
-      }
-    />
+    >
+      <Alert
+        onClose={onDismissSnackBar}
+        severity={severity}
+        action={
+          actionText && (
+            <Button color="inherit" size="small" onClick={action}>
+              {actionText}
+            </Button>
+          )
+        }
+      >
+        {snackText}
+      </Alert>
+    </Snackbar>
   );
 };
