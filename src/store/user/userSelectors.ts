@@ -1,4 +1,4 @@
-import store from '..';
+import { store } from '..';
 
 export function getIsLeftDrawerOpen() {
   const state = store.getState();

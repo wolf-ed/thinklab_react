@@ -2,7 +2,7 @@
 import BiotechIcon from '@mui/icons-material/Biotech';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CodeIcon from '@mui/icons-material/Code';
-
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 // LOCAL
 import { NavigationItem } from '../NavigationItem/NavigationItem';
 import { ROUTES_ENUM } from '../../../const';
@@ -30,7 +30,7 @@ export const TextEditorNavigationItem = () => {
   );
 };
 
-export const CodeEditorNavigationITem = () => {
+export const CodeEditorNavigationItem = () => {
   return (
     <NavigationItem
       title={`Code Editor`}
@@ -40,12 +40,22 @@ export const CodeEditorNavigationITem = () => {
   );
 };
 
-export const SignUpNavigationITem = () => {
+export const SignUpNavigationItem = () => {
   return (
     <NavigationItem
       title={`Sign up`}
       route={ROUTES_ENUM.SIGN_UP}
       icon={<CodeIcon />}
+    />
+  );
+};
+
+export const PostsListNavigationItem = () => {
+  return (
+    <NavigationItem
+      title={`Posts`}
+      route={ROUTES_ENUM.POSTS}
+      icon={<DynamicFeedIcon />}
     />
   );
 };

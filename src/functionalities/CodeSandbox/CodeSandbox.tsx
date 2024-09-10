@@ -12,15 +12,19 @@ import { initialCodeState, Languages_Sandbox_enum } from './const';
 import { ButtonRunCode } from './ButtonRunCode/ButtonRunCode';
 
 interface CodeSandboxPropsInterface {
-  isAuth: boolean;
+  isAuth?: boolean;
   updateContent: (content: string) => void;
+  content: string;
 }
 
 export const CodeSandbox = ({
   isAuth = false,
   updateContent,
+  content,
 }: CodeSandboxPropsInterface) => {
-  const [code, setCode] = useState<string>(initialCodeState);
+  const [code, setCode] = useState<string>(
+    content ? content : initialCodeState
+  );
   const [language, setLanguage] = useState<string>(
     Languages_Sandbox_enum.JAVASCRIPT
   );

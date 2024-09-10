@@ -15,3 +15,18 @@ export interface ItemCodeOrTextInterface {
   expanded: boolean;
   title: string;
 }
+
+export interface PostInterfaceEncoded {
+  id?: string;
+  title: string;
+  content: string;
+  userName: string;
+  userId?: string;
+  visibility: string;
+}
+
+export interface SavePostPropsInterface
+  extends Pick<
+    PostInterfaceEncoded,
+    'id' | 'title' | 'content' | 'visibility'
+  > {}

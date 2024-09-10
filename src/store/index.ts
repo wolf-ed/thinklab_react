@@ -1,17 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import thunkMiddleware from 'redux-thunk';
 
-//My redux
 import { userDataReducer } from './user/userSlice';
+import { snackbarNotificationReducer } from './snackbarNotification/snackbarNotificationSlice';
+import { postsReducer } from './posts/postsSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
+    SnackBarNotification: snackbarNotificationReducer,
     userReducer: userDataReducer,
+    postsReducer: postsReducer,
   },
-  // middleware: [
-  //   thunkMiddleware,
-  //   // loggerMiddleware
-  // ],
 });
 
-export default store;
+export type RootReduxState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -15,11 +15,13 @@ import { LogInPage } from '../../pages/LogInPage/LogInPage';
 import { useSelector } from 'react-redux';
 import { userSelectors } from '../../store/user/userSelectors';
 import { UserAccountPage } from '../../pages/UserAccountPage/UserAccountPage';
+import { PostsListPage } from '../../pages/PostsListPage/PostsListPage';
+import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
 
 export function Routes() {
   const isAuth = useSelector(userSelectors.getIsAuth);
 
-  const homePageIfAuth = <TextAndCodeEditorPage />;
+  const homePageIfAuth = <PostsListPage />;
   // const homePageIfNotAuth = <SignUpOrLogInPage />;
   const router = createBrowserRouter([
     {
@@ -32,10 +34,14 @@ export function Routes() {
         //   path: ROUTES_ENUM.AUTH,
         //   element: isAuth ? homePageIfAuth : <SignUpOrLogInPage />,
         // },
-        // {
-        //   path: ROUTES_ENUM.SIGN_UP,
-        //   element: isAuth ? homePageIfAuth : <SignUpPage />,
-        // },
+        {
+          path: ROUTES_ENUM.SIGN_UP,
+          element: <LogInPage />,
+        },
+        {
+          path: ROUTES_ENUM.AUTH,
+          element: <SignUpOrLogInPage />,
+        },
         {
           path: ROUTES_ENUM.LOG_IN,
           element: isAuth ? homePageIfAuth : <LogInPage />,
@@ -63,6 +69,10 @@ export function Routes() {
         {
           path: ROUTES_ENUM.USER_ACCOUNT,
           element: <UserAccountPage />,
+        },
+        {
+          path: ROUTES_ENUM.POSTS,
+          element: <PostsListPage />,
         },
       ],
     },

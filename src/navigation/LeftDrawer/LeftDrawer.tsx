@@ -14,7 +14,8 @@ import {
   PortfolioNavigationItem,
 } from './components/ExternalNavigationItems/ExternalNavigationItems';
 import {
-  CodeEditorNavigationITem,
+  CodeEditorNavigationItem,
+  PostsListNavigationItem,
   TextAndCodeEditorNavigationItem,
   TextEditorNavigationItem,
 } from './components/InternalNavigationItems/InternalNavigationItems';
@@ -31,7 +32,8 @@ export const LeftDrawer = () => {
     <List>
       <TextAndCodeEditorNavigationItem />
       <TextEditorNavigationItem />
-      <CodeEditorNavigationITem />
+      <CodeEditorNavigationItem />
+      <PostsListNavigationItem />
     </List>
   );
 

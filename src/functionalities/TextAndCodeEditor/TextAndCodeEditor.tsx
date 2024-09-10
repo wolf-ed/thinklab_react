@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CodeIcon from '@mui/icons-material/Code';
 import { useSelector } from 'react-redux';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
 // LOCAL
 import { EditorTypes } from './types';
@@ -19,11 +20,14 @@ import {
 import { App_Colors } from '../../styles/globalStyles';
 import { CustomToolTip } from '../../components/CustomToolTip/CustomToolTip';
 import { userSelectors } from '../../store/user/userSelectors';
+import { SavePostPropsInterface } from './types';
+import { useSavePost } from './useSavePost';
 
 export const TextAndCodeEditor = () => {
   const isAuth = useSelector(userSelectors.getIsAuth);
   const [title, setTitle] = useState('');
   const [allItems, setAllItems] = useState<ItemCodeOrTextInterface[]>([]);
+  const { savePost } = useSavePost();
 
   const handleAddItem = (type: EditorTypes.CODE | EditorTypes.TEXT) => {
     setAllItems([
@@ -63,6 +67,15 @@ export const TextAndCodeEditor = () => {
     setAllItems(items);
   };
 
+  const handleSave = () => {
+    const post: SavePostPropsInterface = {
+      title: title,
+      content: JSON.stringify(allItems),
+      visibility: 'public',
+    };
+    savePost(post);
+  };
+
   const titleInput = (
     <FullWidthTextFieldStyled
       variant="outlined"
@@ -72,9 +85,7 @@ export const TextAndCodeEditor = () => {
       InputProps={{ style: { height: '56px', marginBottom: '1rem' } }}
     />
   );
-  useEffect(() => {
-    console.log('texcodeeditor_isAuth', isAuth);
-  }, []);
+
   const itemsList = (
     <DragDropContext onDragEnd={handleDragEnd}>
       <CustomDragAndDrop droppableId="items">
@@ -107,37 +118,54 @@ export const TextAndCodeEditor = () => {
 
   const buttons = (
     <ButtonsContainerStyled>
+      <CustomToolTip title={'Add a Text Editor Item'}>
+        <Button
+          onClick={() => handleAddItem(EditorTypes.TEXT)}
+          variant="contained"
+          color="primary"
+          sx={{
+            backgroundColor: App_Colors.textBackground,
+            color: App_Colors.text,
+            border: '1px solid white',
+          }}
+          startIcon={<DriveFileRenameOutlineIcon />}
+        >
+          Text
+        </Button>
+      </CustomToolTip>
+      <CustomToolTip title={'Add a Code Editor Item'}>
+        <Button
+          onClick={() => handleAddItem(EditorTypes.CODE)}
+          variant="contained"
+          sx={{ backgroundColor: App_Colors.dark, border: '1px solid white' }}
+          startIcon={<CodeIcon />}
+        >
+          Code
+        </Button>
+      </CustomToolTip>
       <CustomToolTip
-        title={'Add a Text Editor Item'}
-        content={
-          <Button
-            onClick={() => handleAddItem(EditorTypes.TEXT)}
-            variant="contained"
-            color="primary"
-            sx={{
-              backgroundColor: App_Colors.textBackground,
-              color: App_Colors.text,
-              border: '1px solid white',
-            }}
-            startIcon={<DriveFileRenameOutlineIcon />}
-          >
-            Text
-          </Button>
-        }
-      />
-      <CustomToolTip
-        title={'Add a Code Editor Item'}
-        content={
-          <Button
-            onClick={() => handleAddItem(EditorTypes.CODE)}
-            variant="contained"
-            sx={{ backgroundColor: App_Colors.dark, border: '1px solid white' }}
-            startIcon={<CodeIcon />}
-          >
-            Code
-          </Button>
-        }
-      />
+        title={'You need to Log in!'}
+        // title={
+        //   title || allItems.length > 0
+        //     ? 'Save post'
+        //     : 'You need a title and at least 1 item!'
+        // }
+      >
+        <Button
+          onClick={handleSave}
+          variant="contained"
+          // disabled={!title || allItems.length === 0}
+          disabled={true}
+          sx={{
+            backgroundColor: App_Colors.secondColor,
+            color: App_Colors.mainColor,
+            border: '1px solid white',
+          }}
+          startIcon={<SaveAsIcon />}
+        >
+          Save
+        </Button>
+      </CustomToolTip>
     </ButtonsContainerStyled>
   );
 
