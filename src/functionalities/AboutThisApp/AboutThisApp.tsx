@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -9,6 +9,9 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Fab from '@mui/material/Fab';
+import MenuIcon from '@mui/icons-material/Menu';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // LOCAL
 import { Summary } from './components/Summary';
@@ -46,6 +49,72 @@ export function AboutThisApp() {
     });
   };
 
+  // State to toggle the drawer for mobile view
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 600px)');
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawerContent = (
+    <Box sx={{ overflow: 'auto' }}>
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(thinklabRef)}>
+            <ListItemText primary="Thinklab" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(summaryRef)}>
+            <ListItemText primary="Summary" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(keyFeaturesRef)}>
+            <ListItemText primary="Key Features" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(feTechStackRef)}>
+            <ListItemText primary="FE Technology Stack" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(beTechStackRef)}>
+            <ListItemText primary="BE Technology Stack" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(feArchRef)}>
+            <ListItemText primary="FE Architecture" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(beArchRef)}>
+            <ListItemText primary="BE Architecture" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(feSecurityRef)}>
+            <ListItemText primary="FE Security" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(feDevFeaturesRef)}>
+            <ListItemText primary="FE Development Features" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => scrollToSection(beDevFeaturesRef)}>
+            <ListItemText primary="BE Development Features" />
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
+    </Box>
+  );
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -55,77 +124,50 @@ export function AboutThisApp() {
       >
         <TopNavBar />
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
+
+      {isMobile ? (
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+        >
+          {drawerContent}
+        </Drawer>
+      ) : (
+        <Drawer
+          variant="permanent"
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(thinklabRef)}>
-                <ListItemText primary="Thinklab" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(summaryRef)}>
-                <ListItemText primary="Summary" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(keyFeaturesRef)}>
-                <ListItemText primary="Key Features" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(feTechStackRef)}>
-                <ListItemText primary="FE Technology Stack" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(beTechStackRef)}>
-                <ListItemText primary="BE Technology Stack" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(feArchRef)}>
-                <ListItemText primary="FE Architecture" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(beArchRef)}>
-                <ListItemText primary="BE Architecture" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(feSecurityRef)}>
-                <ListItemText primary="FE Security" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(feDevFeaturesRef)}>
-                <ListItemText primary="FE Development Features" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => scrollToSection(beDevFeaturesRef)}>
-                <ListItemText primary="BE Development Features" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-        </Box>
-      </Drawer>
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+        >
+          <Toolbar />
+          {drawerContent}
+        </Drawer>
+      )}
+
+      {/* Main content */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: `calc(100% - ${drawerWidth}px)` }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: `calc(100% - ${drawerWidth}px)`,
+          margin: 0,
+        }}
       >
         <Toolbar />
         <div ref={thinklabRef}>
@@ -159,6 +201,21 @@ export function AboutThisApp() {
           <BEDevelopmentFeatures />
         </div>
       </Box>
+
+      {isMobile && (
+        <Fab
+          color="primary"
+          aria-label="menu"
+          onClick={handleDrawerToggle}
+          sx={{
+            position: 'fixed',
+            bottom: 16,
+            right: 16,
+          }}
+        >
+          <MenuIcon />
+        </Fab>
+      )}
     </Box>
   );
 }
