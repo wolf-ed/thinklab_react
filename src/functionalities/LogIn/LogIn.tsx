@@ -10,6 +10,7 @@ import {
   Box,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // LOCAL
 import { LogInUserInterface } from './types';
@@ -29,6 +30,7 @@ export const LogIn = () => {
   const [loginError, setLoginError] = useState('');
   const { logIn, error } = useLogIn();
   const snackbarNotif = useSnackbarNotification();
+  const isMobile = useMediaQuery('(max-width: 600px)');
 
   const {
     register,
@@ -69,7 +71,7 @@ export const LogIn = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: '2rem',
+          padding: isMobile ? '0.5rem' : '2rem',
           maxWidth: '600px',
           margin: '2rem auto',
           textAlign: 'center',
@@ -128,7 +130,11 @@ export const LogIn = () => {
 
       <Paper
         elevation={3}
-        sx={{ padding: '2rem', maxWidth: '600px', margin: '2rem auto' }}
+        sx={{
+          padding: isMobile ? 0 : '2rem',
+          maxWidth: isMobile ? '95%' : '600px',
+          margin: '2rem auto',
+        }}
       >
         <CustomFormStyled onSubmit={handleSubmit(onLogIn)}>
           <TextField

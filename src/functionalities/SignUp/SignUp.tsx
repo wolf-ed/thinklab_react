@@ -20,12 +20,14 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES_ENUM } from '../../navigation/const';
 import { ENV_IS_PROD } from '../../envConsts';
 import { useSnackbarNotification } from '../SnackbarNotification/useSnackbarNotification';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const SignUp: React.FC = () => {
   const navigate = useNavigate();
   const signUp = useSignUp();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const snackbarNotif = useSnackbarNotification();
+  const isMobile = useMediaQuery('(max-width: 600px)');
   const {
     register,
     handleSubmit,
@@ -58,8 +60,9 @@ export const SignUp: React.FC = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: '2rem',
-          maxWidth: '600px',
+          padding: isMobile ? '0.5rem' : '2rem',
+          width: '600px',
+          maxWidth: '95%',
           margin: '2rem auto',
           textAlign: 'center',
           backgroundColor: '#fafafa',
@@ -68,8 +71,8 @@ export const SignUp: React.FC = () => {
         <Typography
           color="error"
           sx={{
-            marginBottom: '16px',
-            maxWidth: '90%',
+            maxWidth: '95%',
+            margin: 'auto auto 16px',
             width: '50rem',
             textAlign: 'center',
             fontWeight: 'bold',
@@ -100,6 +103,8 @@ export const SignUp: React.FC = () => {
           sx={{
             marginTop: '2rem',
             display: 'flex',
+            margin: 'auto',
+            maxWidth: isMobile ? '95%' : '600px',
             flexDirection: 'column',
             alignItems: 'center',
           }}
@@ -126,8 +131,8 @@ export const SignUp: React.FC = () => {
       <Paper
         elevation={3}
         sx={{
-          padding: '2rem',
-          maxWidth: '600px',
+          padding: isMobile ? 0 : '2rem',
+          maxWidth: isMobile ? '95%' : '600px',
           margin: '2rem auto',
         }}
       >

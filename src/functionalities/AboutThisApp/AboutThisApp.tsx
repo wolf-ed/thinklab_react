@@ -50,7 +50,6 @@ export function AboutThisApp() {
     });
   };
 
-  // State to toggle the drawer for mobile view
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 600px)');
 

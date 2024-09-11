@@ -1,4 +1,4 @@
-import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Typography,
   Box,
@@ -9,10 +9,15 @@ import {
   Divider,
 } from '@mui/material';
 
+// LOCAL
+import { PageWrapper } from '../../components/PageWrapper/PageWrapper';
+
 export const PrivacyPolicyPage = () => {
+  const isMobile = useMediaQuery('(max-width: 600px)');
+
   return (
     <PageWrapper>
-      <Box sx={{ padding: '3rem', backgroundColor: '#f5f5f5' }}>
+      <Box sx={{ padding: isMobile ? 0 : '3rem', backgroundColor: '#f5f5f5' }}>
         <Paper
           elevation={3}
           sx={{ padding: '2.5rem', maxWidth: '800px', margin: '0 auto' }}

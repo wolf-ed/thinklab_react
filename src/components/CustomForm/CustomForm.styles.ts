@@ -7,6 +7,8 @@ export const ContainerStyled = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  max-width: 95%;
+  margin: auto;
 `;
 
 export const CustomFormStyled = styled.form`
@@ -14,6 +16,7 @@ export const CustomFormStyled = styled.form`
   flex-direction: column;
   gap: 2rem;
   width: 50rem;
+  margin: auto;
   max-width: 95%;
   padding: 7rem;
   box-sizing: border-box;
@@ -21,6 +24,6 @@ export const CustomFormStyled = styled.form`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   ${Breakpoints_Screen.M.DOWN} {
-    padding: 2rem;
+    padding: 1rem;
   }
 `;
