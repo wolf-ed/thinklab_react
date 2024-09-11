@@ -35,7 +35,7 @@ export function Routes() {
         { path: '', element: isAuth ? homePageIfAuth : homePageIfAuth },
         {
           path: ROUTES_ENUM.PRIVACY_POLICY,
-          element: isAuth ? homePageIfAuth : <PrivacyPolicyPage />,
+          element: <PrivacyPolicyPage />,
         },
         {
           path: ROUTES_ENUM.ABOUT,
