@@ -25,6 +25,7 @@ import { FEDevelopmentFeatures } from './components/FEDevelopmentFeatures';
 import { BEDevelopmentFeatures } from './components/BEDevelopmentFeatures';
 import { TopNavBar } from '../../navigation/TopNavBar/TopNavBar';
 import { ThinklabTitle } from './components/ThinklabTitle';
+import { App_Colors } from '../../styles/globalStyles';
 
 const drawerWidth = 240;
 
@@ -159,7 +160,6 @@ export function AboutThisApp() {
         </Drawer>
       )}
 
-      {/* Main content */}
       <Box
         component="main"
         sx={{
@@ -204,13 +204,17 @@ export function AboutThisApp() {
 
       {isMobile && (
         <Fab
-          color="primary"
           aria-label="menu"
           onClick={handleDrawerToggle}
           sx={{
+            color: App_Colors.contrastColor,
+            backgroundColor: App_Colors.dark,
             position: 'fixed',
             bottom: 16,
             right: 16,
+            '&:hover': {
+              color: App_Colors.dark,
+            },
           }}
         >
           <MenuIcon />
