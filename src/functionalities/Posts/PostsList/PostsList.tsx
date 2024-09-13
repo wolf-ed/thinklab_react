@@ -4,6 +4,7 @@ import { CircularProgress, Grid, Typography } from '@mui/material';
 import { PostTile } from '../PostTile/PostTile';
 import { useGetPosts } from '../useGetPosts';
 import { getAllPosts } from '../../../store/posts/postsSelector';
+import { ContainerStyled } from './PostList.styles';
 
 export const PostsList = () => {
   const posts = useSelector(getAllPosts);
@@ -43,12 +44,10 @@ export const PostsList = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <ContainerStyled>
       {posts.map((postItem) => (
-        <Grid item xs={12} sm={6} md={4} key={postItem.id}>
-          <PostTile postItem={postItem} />
-        </Grid>
+        <PostTile postItem={postItem} />
       ))}
-    </Grid>
+    </ContainerStyled>
   );
 };
