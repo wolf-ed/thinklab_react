@@ -2,8 +2,8 @@ import React from 'react';
 
 //Material UI MUI
 import Tooltip from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
 import { ToolTipTitleStyled } from './CustomToolTip.styles';
+import { Slide } from '@mui/material';
 
 interface CustomToolTipPropsInterface {
   title: string;
@@ -30,7 +30,7 @@ export const CustomToolTip = ({
       enterDelay={delay}
       placement={placement}
       title={<ToolTipTitleStyled>{title}</ToolTipTitleStyled>}
-      TransitionComponent={Zoom}
+      TransitionComponent={Slide}
       arrow
     >
       {withWraper ? <div>{finalContent}</div> : finalContent}

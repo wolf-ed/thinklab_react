@@ -15,6 +15,10 @@ export enum App_Colors {
   thirdColor2 = '#2270ee',
   textBackground = '#dae8fc',
   lightGray = 'lightGray',
+  error = '#f44336',
+  warning = '#ffa726',
+  info = '#29b6f6',
+  success = '#66bb6a',
 }
 
 export const WhiteColorTextStyled = styled.div`

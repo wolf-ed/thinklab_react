@@ -1,5 +1,8 @@
 import { Snackbar, Button, Alert } from '@mui/material';
 
+// LOCAL
+import { App_Colors } from '../../styles/globalStyles';
+
 export interface CustomSnackBarProps {
   isVisible: boolean;
   onDismissSnackBar?: () => void;
@@ -23,7 +26,26 @@ export const CustomSnackBar = ({
 }: CustomSnackBarProps) => {
   const snackbarPosition = {
     vertical: position,
-    horizontal: 'center' as 'center',
+    horizontal: 'left' as 'left',
+  };
+
+  const severityStyles = {
+    error: {
+      backgroundColor: App_Colors.error,
+      color: '#fff',
+    },
+    warning: {
+      backgroundColor: App_Colors.warning,
+      color: '#fff',
+    },
+    info: {
+      backgroundColor: App_Colors.info,
+      color: '#fff',
+    },
+    success: {
+      backgroundColor: App_Colors.success,
+      color: '#fff',
+    },
   };
 
   return (
@@ -34,7 +56,8 @@ export const CustomSnackBar = ({
       anchorOrigin={snackbarPosition}
     >
       <Alert
-        onClose={onDismissSnackBar}
+        variant="filled"
+        sx={{ width: '100%', ...severityStyles[severity] }}
         severity={severity}
         action={
           actionText && (
