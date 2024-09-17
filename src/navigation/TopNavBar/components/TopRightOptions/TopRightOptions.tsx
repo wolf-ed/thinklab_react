@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 import useMediaQuery from '@mui/material/useMediaQuery';
