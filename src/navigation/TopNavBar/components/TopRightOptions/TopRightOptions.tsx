@@ -26,31 +26,36 @@ export const TopRightOptions = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width: 600px)');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
 
   const handleLogin = () => {
     navigate(ROUTES_ENUM.LOG_IN);
-    handleClose();
+    handleClose2();
   };
 
   const handleSignUp = () => {
     navigate(ROUTES_ENUM.SIGN_UP);
-    handleClose();
+    handleClose2();
   };
 
   const handlePrivacyPolicy = () => {
     navigate(ROUTES_ENUM.PRIVACY_POLICY);
     handleClose();
+    handleClose2();
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl2(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const handleClose2 = () => {
+    setAnchorEl2(null);
+  };
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -118,7 +123,7 @@ export const TopRightOptions = () => {
     </Menu>
   );
 
-  const notAuthOptions = isMobile ? (
+  const notAuthOptions = isMobile && !isAuth && (
     <>
       <IconButton
         aria-label="more"
@@ -131,27 +136,15 @@ export const TopRightOptions = () => {
       </IconButton>
       <Menu
         id="long-menu"
-        anchorEl={anchorEl}
+        anchorEl={anchorEl2}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Boolean(anchorEl2)}
         onClose={handleClose}
       >
-        {isAuth ?? <MenuItem onClick={handleLogin}>Log In</MenuItem>}
-        {isAuth ?? <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>}
+        {<MenuItem onClick={handleLogin}>Log In</MenuItem>}
+        {<MenuItem onClick={handleSignUp}>Sign Up</MenuItem>}
         <MenuItem onClick={handlePrivacyPolicy}>Privacy Policy</MenuItem>
       </Menu>
-    </>
-  ) : (
-    <>
-      <Button color="inherit" onClick={handleLogin}>
-        Log In
-      </Button>
-      <Button color="inherit" onClick={handleSignUp} variant="outlined">
-        Sign Up
-      </Button>
-      <Button color="inherit" onClick={handlePrivacyPolicy} variant="outlined">
-        Privacy Policy
-      </Button>
     </>
   );
 
