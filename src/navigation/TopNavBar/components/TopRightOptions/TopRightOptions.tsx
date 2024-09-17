@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Button from '@mui/material/Button';
 
 // LOCAL
 import { getIsAuth } from '../../../../store/user/userSelectors';
@@ -122,7 +123,7 @@ export const TopRightOptions = () => {
     </Menu>
   );
 
-  const notAuthOptions = isMobile && !isAuth && (
+  let notAuthOptions = isMobile && !isAuth && (
     <>
       <IconButton
         aria-label="more"
@@ -138,13 +139,29 @@ export const TopRightOptions = () => {
         anchorEl={anchorEl2}
         keepMounted
         open={Boolean(anchorEl2)}
-        onClose={handleClose}
+        onClose={handleClose2}
       >
         {<MenuItem onClick={handleLogin}>Log In</MenuItem>}
         {<MenuItem onClick={handleSignUp}>Sign Up</MenuItem>}
         <MenuItem onClick={handlePrivacyPolicy}>Privacy Policy</MenuItem>
       </Menu>
     </>
+  );
+
+  notAuthOptions = !isMobile ? (
+    <>
+      <Button color="inherit" onClick={handleLogin}>
+        Log In
+      </Button>
+      <Button color="inherit" onClick={handleSignUp} variant="outlined">
+        Sign Up
+      </Button>
+      <Button color="inherit" onClick={handlePrivacyPolicy} variant="outlined">
+        Privacy Policy
+      </Button>
+    </>
+  ) : (
+    notAuthOptions
   );
 
   return (
