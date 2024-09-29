@@ -58,7 +58,7 @@ export function AboutThisApp() {
   };
 
   const drawerContent = (
-    <Box sx={{ overflow: 'auto' }}>
+    <Box sx={{ overflow: 'auto', paddingTop: isMobile ? '56px' : '' }}>
       <List>
         <ListItem disablePadding>
           <ListItemButton onClick={() => scrollToSection(thinklabRef)}>
