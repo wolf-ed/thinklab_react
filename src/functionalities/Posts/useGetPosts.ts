@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 // LOCAL
 import { getToken } from '../../store/user/userSelectors';
 import { useSnackbarNotification } from '../SnackbarNotification/useSnackbarNotification';
-import { PostInterfaceEncoded } from '../TextAndCodeEditor/types';
+import { PostInterfaceEncoded } from '../PostsEditor/types';
 import { setPosts } from '../../store/posts/postsSlice';
 
 const GET_POSTS_QUERY = gql`

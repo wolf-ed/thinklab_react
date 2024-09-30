@@ -4,7 +4,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 // LOCAL
 import { decodePostContent } from '../utils';
 import { PostContentDecodedInterface } from '../types';
-import { PostInterfaceEncoded } from '../../TextAndCodeEditor/types';
+import { PostInterfaceEncoded } from '../../PostsEditor/types';
 import { DisplayEditorItemComponent } from '../components/PostContentItemComponent/PostContentItemComponent';
 import { PostTitleStyled } from './PostTile.styles';
 

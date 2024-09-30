@@ -3,6 +3,14 @@ import { TextField } from '@mui/material';
 
 export const ContainerStyled = styled('div')({
   position: 'relative',
+  // display: 'flex',
+  // flexDirection: 'row',
+  // maxWidth: '100vw',
+  overflow: 'hidden',
+});
+
+export const SubContainerStyled = styled('div')({
+  // maxWidth: '50%',
 });
 
 export const ButtonsContainerStyled = styled('div')({

@@ -9,28 +9,32 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 // LOCAL
 import { EditorTypes } from './types';
 import { createId } from '../../utils/utils';
-import { ItemCodeOrTextInterface } from './types';
+import { PostItemInterface } from './types';
 import { CustomDragAndDrop } from '../../components/CustomDragAndDrop/CustomDragAndDrop';
 import { EditorItemComponent } from './components/EditorItemComponent/EditorItemComponent';
 import {
   ContainerStyled,
   ButtonsContainerStyled,
   FullWidthTextFieldStyled,
-} from './TextAndCodeEditor.styles';
+} from './PostsEditor.styles';
 import { App_Colors } from '../../styles/globalStyles';
 import { CustomToolTip } from '../../components/CustomToolTip/CustomToolTip';
 import { userSelectors } from '../../store/user/userSelectors';
 import { SavePostPropsInterface } from './types';
 import { useSavePost } from './useSavePost';
 import { ENV_IS_PROD } from '../../envConsts';
+import { getItemTypeColor } from './utils';
+import { PostTile } from '../Posts/PostTile/PostTile';
+import { PostInterfaceEncoded } from './types';
+import { CustomButtonWithDialog } from '../../components/CustomButtonWithDialog/CustomButtonWithDialog';
 
-export const TextAndCodeEditor = () => {
+export const PostsEditor = () => {
   const isAuth = useSelector(userSelectors.getIsAuth);
   const [title, setTitle] = useState('');
-  const [allItems, setAllItems] = useState<ItemCodeOrTextInterface[]>([]);
+  const [allItems, setAllItems] = useState<PostItemInterface[]>([]);
   const { savePost } = useSavePost();
 
-  const handleAddItem = (type: EditorTypes.CODE | EditorTypes.TEXT) => {
+  const handleAddItem = (type: EditorTypes) => {
     setAllItems([
       ...allItems,
       {
@@ -50,12 +54,14 @@ export const TextAndCodeEditor = () => {
       )
     );
   };
+
   const handleItemTitleChange = (id: string, newTitle: string) => {
     setAllItems(
       allItems.map((el) => (el.id === id ? { ...el, title: newTitle } : el))
     );
   };
   const handleItemContentChange = (id: string, newContent: string) => {
+    console.log('newContent', newContent, id);
     setAllItems(
       allItems.map((el) => (el.id === id ? { ...el, content: newContent } : el))
     );
@@ -97,6 +103,7 @@ export const TextAndCodeEditor = () => {
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
                     <EditorItemComponent
+                      key={item.id}
                       isAuth={isAuth}
                       provided={provided}
                       item={item}
@@ -122,33 +129,80 @@ export const TextAndCodeEditor = () => {
       ? 'Save post'
       : 'You need a title and at least 1 item!';
 
+  const addTextButton = (
+    <CustomToolTip title={'Add a Text Editor Item'}>
+      <Button
+        onClick={() => handleAddItem(EditorTypes.TEXT)}
+        variant="contained"
+        color="primary"
+        sx={{
+          backgroundColor: getItemTypeColor(EditorTypes.TEXT),
+          color: App_Colors.text,
+          border: '1px solid white',
+        }}
+        startIcon={<DriveFileRenameOutlineIcon />}
+      >
+        Text
+      </Button>
+    </CustomToolTip>
+  );
+
+  const addCodeButton = (
+    <CustomToolTip title={'Add a Code Editor Item'}>
+      <Button
+        onClick={() => handleAddItem(EditorTypes.CODE)}
+        variant="contained"
+        sx={{
+          backgroundColor: getItemTypeColor(EditorTypes.CODE),
+          border: '1px solid white',
+        }}
+        startIcon={<CodeIcon />}
+      >
+        Code
+      </Button>
+    </CustomToolTip>
+  );
+
+  const addMathButton = (
+    <CustomToolTip title={'Add a Code Editor Item'}>
+      <Button
+        onClick={() => handleAddItem(EditorTypes.MATH)}
+        variant="contained"
+        sx={{
+          backgroundColor: getItemTypeColor(EditorTypes.MATH),
+          border: '1px solid white',
+        }}
+        startIcon={<CodeIcon />}
+      >
+        Math
+      </Button>
+    </CustomToolTip>
+  );
+
+  const displayResult = (
+    <CustomButtonWithDialog
+      buttonProps={{
+        buttonTitle: 'See Final Post',
+      }}
+    >
+      <PostTile
+        postItem={
+          {
+            title: title,
+            content: JSON.stringify(allItems),
+            visibility: 'public',
+          } as PostInterfaceEncoded
+        }
+      />
+    </CustomButtonWithDialog>
+  );
+
   const buttons = (
     <ButtonsContainerStyled>
-      <CustomToolTip title={'Add a Text Editor Item'}>
-        <Button
-          onClick={() => handleAddItem(EditorTypes.TEXT)}
-          variant="contained"
-          color="primary"
-          sx={{
-            backgroundColor: App_Colors.textBackground,
-            color: App_Colors.text,
-            border: '1px solid white',
-          }}
-          startIcon={<DriveFileRenameOutlineIcon />}
-        >
-          Text
-        </Button>
-      </CustomToolTip>
-      <CustomToolTip title={'Add a Code Editor Item'}>
-        <Button
-          onClick={() => handleAddItem(EditorTypes.CODE)}
-          variant="contained"
-          sx={{ backgroundColor: App_Colors.dark, border: '1px solid white' }}
-          startIcon={<CodeIcon />}
-        >
-          Code
-        </Button>
-      </CustomToolTip>
+      {addTextButton}
+      {addCodeButton}
+      {addMathButton}
+      {displayResult}
       <CustomToolTip
         title={
           isAuth && !ENV_IS_PROD

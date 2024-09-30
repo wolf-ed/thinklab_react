@@ -1,14 +1,20 @@
 export enum EditorTypes {
   CODE = 'code',
   TEXT = 'text',
+  MATH = 'math',
 }
 
 export interface CodeOrTextObject {
   type: EditorTypes;
 }
 
-export interface ItemCodeOrTextInterface {
-  type: EditorTypes.CODE | EditorTypes.TEXT;
+export type PostItemTypes =
+  | EditorTypes.CODE
+  | EditorTypes.TEXT
+  | EditorTypes.MATH;
+
+export interface PostItemInterface {
+  type: PostItemTypes;
   content: string;
   index: number;
   id: string;

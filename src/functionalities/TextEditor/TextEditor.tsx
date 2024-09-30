@@ -37,7 +37,7 @@ const TextEditor = ({
   reset,
   textPayload = '',
 }: TextEditorPropsInterface) => {
-  const [editorValue, setEditorValue] = useState('');
+  const [editorValue, setEditorValue] = useState(textPayload);
 
   const handleChange = (event: string) => {
     setEditorValue(event);

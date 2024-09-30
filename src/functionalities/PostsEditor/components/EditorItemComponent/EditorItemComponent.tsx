@@ -3,15 +3,17 @@ import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { DraggableProvided } from 'react-beautiful-dnd';
 
 // LOCAL
-import { ItemCodeOrTextInterface, EditorTypes } from '../../types';
+import { PostItemInterface, EditorTypes } from '../../types';
 import { ItemTitleTextFieldStyled } from './EditorItemComponent.styles';
 import { CodeSandbox } from '../../../CodeSandbox/CodeSandbox';
 import { ControlledTextEditor } from '../../../TextEditor/components/ControlledTextEditor/ControlledTextEditor';
 import { App_Colors } from '../../../../styles/globalStyles';
+import { MathEditor } from '../../../../components/MathComponents/MathEditor';
+import { getItemTypeColor } from '../../utils';
 
 export interface EditorItemPropsInterface {
   provided: DraggableProvided;
-  item: ItemCodeOrTextInterface;
+  item: PostItemInterface;
   toggleAccordion: (id: string) => void;
   handleItemTitleChange: (id: string, newTitle: string) => void;
   isAuth?: boolean;
@@ -28,6 +30,38 @@ export const EditorItemComponent = ({
 }: EditorItemPropsInterface) => {
   const isCodeEditor = item.type === EditorTypes.CODE;
   const textColor = isCodeEditor ? App_Colors.contrastColor : App_Colors.text;
+
+  const renderItemByCorrectType = (itemType: EditorTypes) => {
+    switch (itemType) {
+      case EditorTypes.CODE:
+        return (
+          <CodeSandbox
+            content={item.content}
+            isAuth={isAuth}
+            updateContent={updateContent}
+          />
+        );
+      case EditorTypes.MATH:
+        return (
+          <MathEditor
+            key={item.id}
+            initialContent={item.content}
+            updateContent={updateContent}
+          />
+        );
+      case EditorTypes.TEXT:
+        return (
+          <ControlledTextEditor
+            content={item.content}
+            key={item.id}
+            updateContent={updateContent}
+          />
+        );
+      default:
+        return <div>No component available for this type</div>;
+    }
+  };
+
   return (
     <Accordion
       ref={provided.innerRef}
@@ -35,9 +69,7 @@ export const EditorItemComponent = ({
       expanded={item.expanded}
       sx={{
         margin: '1rem auto',
-        backgroundColor: isCodeEditor
-          ? App_Colors.dark
-          : App_Colors.textBackground,
+        backgroundColor: getItemTypeColor(item.type),
         minHeight: 'fit-content',
       }}
       onChange={() => toggleAccordion(item.id)}
@@ -59,7 +91,7 @@ export const EditorItemComponent = ({
             color: textColor,
           }}
         >
-          {item.type === EditorTypes.CODE ? 'Code' : 'Text'}
+          {item.type}
         </div>
         <ItemTitleTextFieldStyled
           variant="outlined"
@@ -89,11 +121,7 @@ export const EditorItemComponent = ({
           overflow: 'hidden',
         }}
       >
-        {item.type === EditorTypes.CODE ? (
-          <CodeSandbox isAuth={isAuth} updateContent={updateContent} />
-        ) : (
-          <ControlledTextEditor updateContent={updateContent} />
-        )}
+        {renderItemByCorrectType(item.type)}
       </AccordionDetails>
     </Accordion>
   );

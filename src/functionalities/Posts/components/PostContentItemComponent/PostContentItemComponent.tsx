@@ -2,10 +2,12 @@ import parse from 'html-react-parser';
 
 // LOCAL
 import { CodeSandbox } from '../../../CodeSandbox/CodeSandbox';
+import { EditorTypes } from '../../../PostsEditor/types';
+import { MathItem } from '../../../../components/MathComponents/MathItem';
 
 interface DisplayEditorItemComponent {
   postContentItem: string;
-  type: 'code' | 'text';
+  type: EditorTypes;
   title: string;
   key: string;
 }
@@ -19,10 +21,17 @@ export const DisplayEditorItemComponent = ({
   if (!postContentItem) {
     finalContent = <>corrupted document</>;
   }
-  if (type === 'code') {
-    finalContent = <CodeSandbox content={postContentItem} />;
-  } else if (type === 'text') {
-    finalContent = <>{parse(postContentItem)}</>;
+
+  switch (type) {
+    case EditorTypes.CODE:
+      finalContent = <CodeSandbox content={postContentItem} />;
+      break;
+    case EditorTypes.CODE:
+      finalContent = <>{parse(postContentItem)}</>;
+      break;
+    case EditorTypes.MATH:
+      finalContent = <MathItem content={postContentItem} />;
+      break;
   }
   return (
     <div key={postContentItem}>

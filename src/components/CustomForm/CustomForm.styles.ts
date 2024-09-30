@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { App_Colors, Breakpoints_Screen } from '../../styles/globalStyles';
-
 export const ContainerStyled = styled.div`
   display: flex;
   flex-direction: column;

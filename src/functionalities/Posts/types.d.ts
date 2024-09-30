@@ -1,5 +1,7 @@
+import { EditorTypes } from '../PostsEditor/types';
+
 export interface PostContentDecodedInterface {
-  type: 'text' | 'code';
+  type: EditorTypes;
   content: string;
   id: string;
   index: number;

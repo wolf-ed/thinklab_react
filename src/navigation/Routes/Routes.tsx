@@ -9,7 +9,7 @@ import { ROUTES_ENUM } from '../const';
 import { ErrorPage } from '../../pages/ErrorPage/ErrorPage';
 import { CodeSandboxPage } from '../../pages/CodeSandbox/CodeSandboxPage';
 import { TextEditorPage } from '../../pages/TextEditorPage/TextEditorPage';
-import { TextAndCodeEditorPage } from '../../pages/TextAndCodeEditorPage/TextAndCodeEditorPage';
+import { PostsEditorPage } from '../../pages/PostsEditorPage/PostsEditorPage';
 // import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
 import { LogInPage } from '../../pages/LogInPage/LogInPage';
 import { useSelector } from 'react-redux';
@@ -71,11 +71,7 @@ export function Routes() {
         },
         {
           path: ROUTES_ENUM.TEXT_AND_CODE_EDITOR,
-          element: isAuth ? (
-            <TextAndCodeEditorPage />
-          ) : (
-            <TextAndCodeEditorPage />
-          ),
+          element: isAuth ? <PostsEditorPage /> : <PostsEditorPage />,
         },
         {
           path: ROUTES_ENUM.USER_ACCOUNT,

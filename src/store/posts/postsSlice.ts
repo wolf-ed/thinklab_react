@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PostInterfaceEncoded as OriginalPostInterface } from '../../functionalities/TextAndCodeEditor/types';
+import { PostInterfaceEncoded as OriginalPostInterface } from '../../functionalities/PostsEditor/types';
 
 export interface PostInterface
   extends Pick<
