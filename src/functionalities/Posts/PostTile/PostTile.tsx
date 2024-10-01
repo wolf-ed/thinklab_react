@@ -26,7 +26,7 @@ export const PostTile: React.FC<PostTileProps> = ({ postItem }) => {
     <Card
       key={postItem.id}
       raised
-      sx={{ minWidth: '90vw', maxWidth: 'fit-content' }}
+      sx={{ minWidth: '90%', maxWidth: '90%', width: '90vw', margin: 'auto' }}
     >
       <CardContent>
         <PostTitleStyled>{postItem.title}</PostTitleStyled>
