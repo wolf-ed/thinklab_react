@@ -17,11 +17,12 @@ interface CustomButtonWithDialogPropsInterface {
   buttonProps: CustomButtonPropsInterface;
   children: React.ReactNode;
   dialogTitle?: string;
+  width: string;
 }
 
 export const CustomButtonWithDialog: React.FC<
   CustomButtonWithDialogPropsInterface
-> = ({ buttonProps, children, dialogTitle }) => {
+> = ({ buttonProps, children, dialogTitle, width = '90vw' }) => {
   const [isDialogOpened, setIsDialogOpened] = useState(false);
 
   const handleOpenDialog = () => {
@@ -40,6 +41,14 @@ export const CustomButtonWithDialog: React.FC<
         onClose={handleCloseDialog}
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
+        className="dialogContainer"
+        sx={{
+          '&.dialogContainer .MuiDialog-paper': {
+            width: width,
+            minWidth: width,
+            overflowY: 'hidden',
+          },
+        }}
       >
         {dialogTitle && (
           <DialogTitle id="dialog-title">{dialogTitle}</DialogTitle>
