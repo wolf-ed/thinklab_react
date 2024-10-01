@@ -17,7 +17,7 @@ interface CustomButtonWithDialogPropsInterface {
   buttonProps: CustomButtonPropsInterface;
   children: React.ReactNode;
   dialogTitle?: string;
-  width: string;
+  width?: string;
 }
 
 export const CustomButtonWithDialog: React.FC<
