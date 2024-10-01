@@ -26,7 +26,7 @@ export const DisplayEditorItemComponent = ({
     case EditorTypes.CODE:
       finalContent = <CodeSandbox content={postContentItem} />;
       break;
-    case EditorTypes.CODE:
+    case EditorTypes.TEXT:
       finalContent = <>{parse(postContentItem)}</>;
       break;
     case EditorTypes.MATH:
