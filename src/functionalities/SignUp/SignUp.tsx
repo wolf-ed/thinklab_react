@@ -42,7 +42,7 @@ export const SignUp: React.FC = () => {
   ) => {
     if (!ENV_IS_PROD) {
       await signUp.signUpUser({ ...userData });
-      navigate(ROUTES_ENUM.TEXT_AND_CODE_EDITOR);
+      navigate(ROUTES_ENUM.POSTS_EDITOR);
     } else {
       snackbarNotif.showSnackbar({
         message: 'Sign in is disabled for privacy policy!',

@@ -42,7 +42,7 @@ export const LogIn = () => {
     if (!ENV_IS_PROD) {
       await logIn({
         userData: userData,
-        onSuccess: () => navigate(ROUTES_ENUM.TEXT_AND_CODE_EDITOR),
+        onSuccess: () => navigate(ROUTES_ENUM.POSTS_EDITOR),
       });
     } else {
       snackbarNotif.showSnackbar({

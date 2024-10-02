@@ -70,7 +70,7 @@ export function Routes() {
           element: <TextEditorPage />,
         },
         {
-          path: ROUTES_ENUM.TEXT_AND_CODE_EDITOR,
+          path: ROUTES_ENUM.POSTS_EDITOR,
           element: isAuth ? <PostsEditorPage /> : <PostsEditorPage />,
         },
         {

@@ -13,13 +13,13 @@ export interface NavigationItemPropsInterface {
 /**
  * LOCAL ROUTE ITEMS
  */
-export const TextAndCodeEditorNavigationItem = ({
+export const PostsEditorNavigationItem = ({
   onClick,
 }: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
-      title={`Text-Code Editor`}
-      route={ROUTES_ENUM.TEXT_AND_CODE_EDITOR}
+      title={`Posts Editor`}
+      route={ROUTES_ENUM.POSTS_EDITOR}
       icon={<BiotechIcon />}
       onClick={onClick}
     />

@@ -61,7 +61,6 @@ export const PostsEditor = () => {
     );
   };
   const handleItemContentChange = (id: string, newContent: string) => {
-    console.log('newContent', newContent, id);
     setAllItems(
       allItems.map((el) => (el.id === id ? { ...el, content: newContent } : el))
     );
