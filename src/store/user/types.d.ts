@@ -1,9 +1,13 @@
 import { User as UserTypeFirebase } from 'firebase/auth';
 
-export type User = UserTypeFirebase | null;
+export type UserInterface = {
+  name: string;
+  id: string;
+  email: string;
+};
 
 export type UserReducerInterface = {
-  user: User;
+  user: UserInterface | null;
   isUserLoggedIn: boolean;
   token: string | null;
   isLeftDrawerOpen: boolean;

@@ -74,6 +74,10 @@ export function Routes() {
           element: isAuth ? <PostsEditorPage /> : <PostsEditorPage />,
         },
         {
+          path: ROUTES_ENUM.POST_EDIT + ':postId',
+          element: <PostsEditorPage />,
+        },
+        {
           path: ROUTES_ENUM.USER_ACCOUNT,
           element: <UserAccountPage />,
         },

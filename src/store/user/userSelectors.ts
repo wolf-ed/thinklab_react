@@ -1,5 +1,10 @@
 import { store } from '..';
 
+export function getUserId() {
+  const state = store.getState();
+  return state.userReducer.user?.id;
+}
+
 export function getIsLeftDrawerOpen() {
   const state = store.getState();
   return state.userReducer.isLeftDrawerOpen;

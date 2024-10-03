@@ -7,6 +7,13 @@ export interface PostInterface
     'id' | 'title' | 'content' | 'visibility' | 'userName'
   > {}
 
+export interface PostsReducerStateInterface {
+  posts: PostInterface[];
+  selectedPost: PostInterface | null;
+  isLoading: boolean;
+  error: string | null;
+}
+
 const postsReducerInitialState = {
   posts: [] as PostInterface[],
   selectedPost: null as PostInterface | null,

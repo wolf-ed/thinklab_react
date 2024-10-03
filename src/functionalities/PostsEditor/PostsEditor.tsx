@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
@@ -27,12 +27,29 @@ import { getItemTypeColor } from './utils';
 import { PostTile } from '../Posts/PostTile/PostTile';
 import { PostInterfaceEncoded } from './types';
 import { CustomButtonWithDialog } from '../../components/CustomButtonWithDialog/CustomButtonWithDialog';
+import { PostInterface } from '../../store/posts/postsSlice';
+import { decodePostContent } from '../Posts/utils';
+import { PostContentDecodedInterface } from '../Posts/types';
 
-export const PostsEditor = () => {
+export interface PostsEditorPropsInterface {
+  post?: PostInterface;
+}
+
+export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   const isAuth = useSelector(userSelectors.getIsAuth);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(post ? post.title : '');
   const [allItems, setAllItems] = useState<PostItemInterface[]>([]);
   const { savePost } = useSavePost();
+
+  useEffect(() => {
+    if (post) {
+      const postContent: PostContentDecodedInterface[] | null =
+        decodePostContent(post.content);
+      if (postContent) {
+        setAllItems(postContent);
+      }
+    }
+  }, []);
 
   const handleAddItem = (type: EditorTypes) => {
     setAllItems([
@@ -74,12 +91,13 @@ export const PostsEditor = () => {
   };
 
   const handleSave = () => {
-    const post: SavePostPropsInterface = {
+    const postToSave: SavePostPropsInterface = {
+      ...post,
       title: title,
       content: JSON.stringify(allItems),
       visibility: 'public',
     };
-    savePost(post);
+    savePost(postToSave);
   };
 
   const titleInput = (

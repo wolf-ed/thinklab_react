@@ -37,7 +37,6 @@ export const useSavePost = () => {
       console.log('GraphQL Error:', apolloError.graphQLErrors);
     },
   });
-
   const savePost = async ({
     id,
     title,

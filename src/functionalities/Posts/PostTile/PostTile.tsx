@@ -6,7 +6,7 @@ import { decodePostContent } from '../utils';
 import { PostContentDecodedInterface } from '../types';
 import { PostInterfaceEncoded } from '../../PostsEditor/types';
 import { DisplayEditorItemComponent } from '../components/PostContentItemComponent/PostContentItemComponent';
-import { PostTitleStyled } from './PostTile.styles';
+import { PostTitle } from './PostTitle/PostTitle';
 
 interface PostTileProps {
   postItem: PostInterfaceEncoded;
@@ -29,7 +29,11 @@ export const PostTile: React.FC<PostTileProps> = ({ postItem }) => {
       sx={{ minWidth: '90%', maxWidth: '90%', width: '90vw', margin: 'auto' }}
     >
       <CardContent>
-        <PostTitleStyled>{postItem.title}</PostTitleStyled>
+        <PostTitle
+          title={postItem.title}
+          postId={postItem.id}
+          postOwnerId={postItem.userId}
+        />
         {contentItems?.map((postContentItem: PostContentDecodedInterface) => {
           return (
             <DisplayEditorItemComponent

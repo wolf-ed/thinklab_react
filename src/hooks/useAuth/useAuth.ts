@@ -1,38 +1,58 @@
 import { useDispatch } from 'react-redux';
 
 // LOCAL
-import { AUTH_TOKEN_KEY } from './const';
-import { setIsUserLoggedIn, setUserLogOut } from '../../store/user/userSlice';
+import { LOCAL_HOST_KEYS } from './const';
+import {
+  setIsUserLoggedIn,
+  setUser,
+  setUserLogOut,
+} from '../../store/user/userSlice';
+import { UserInterface } from '../../store/user/types';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
 
-  const authUser = (token: string): void => {
+  const authUser = (token: string, user: UserInterface): void => {
+    saveToken(token);
     saveToken(token);
     dispatch(setIsUserLoggedIn({ isLoggedIn: true, token: token }));
+    dispatch(setUser(user));
+    saveUser(user);
   };
 
   const logOutUser = () => {
-    deleteToken();
+    deleteTokenAndUserData();
     dispatch(setUserLogOut());
   };
 
   const saveToken = (token: string): void => {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem(LOCAL_HOST_KEYS.AUTH_TOKEN, token);
   };
 
-  const deleteToken = (): void => {
-    localStorage.removeItem(AUTH_TOKEN_KEY);
+  const saveUser = (user: UserInterface): void => {
+    localStorage.setItem(LOCAL_HOST_KEYS.USER, JSON.stringify(user));
+  };
+
+  const deleteTokenAndUserData = (): void => {
+    localStorage.removeItem(LOCAL_HOST_KEYS.AUTH_TOKEN);
+    localStorage.removeItem(LOCAL_HOST_KEYS.USER);
   };
 
   const getToken = (): string | null => {
-    return localStorage.getItem(AUTH_TOKEN_KEY);
+    return localStorage.getItem(LOCAL_HOST_KEYS.AUTH_TOKEN);
+  };
+
+  const getUser = (): UserInterface | null => {
+    const userJsonFormat = localStorage.getItem(LOCAL_HOST_KEYS.USER);
+    return userJsonFormat ? JSON.parse(userJsonFormat) : null;
   };
 
   const checkLocalstorageTokenAndIfSoLogIn = (): void => {
     const token = getToken();
-    if (token) {
+    const user: UserInterface | null = getUser();
+    if (token && user) {
       dispatch(setIsUserLoggedIn({ isLoggedIn: true, token: token }));
+      dispatch(setUser(user));
     }
   };
 
@@ -40,7 +60,7 @@ export const useAuth = () => {
 
   return {
     saveToken,
-    deleteToken,
+    deleteToken: deleteTokenAndUserData,
     getToken,
     isAuth,
     authUser,

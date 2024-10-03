@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { PostTile } from '../PostTile/PostTile';
 import { useGetPosts } from '../useGetPosts';
 import { getAllPosts } from '../../../store/posts/postsSelector';
 import { ContainerStyled } from './PostList.styles';
+import { LoadingComponent } from '../../../components/LoadingComponent/LoadingComponent';
 
 export const PostsList = () => {
   const posts = useSelector(getAllPosts);
@@ -15,16 +16,7 @@ export const PostsList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        style={{ height: '100vh' }}
-      >
-        <CircularProgress />
-      </Grid>
-    );
+    return <LoadingComponent />;
   }
 
   if (error) {

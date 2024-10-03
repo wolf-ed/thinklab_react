@@ -1,6 +1,7 @@
 export enum ROUTES_ENUM {
   HOME = '/',
   POSTS = '/posts',
+  POST_EDIT = '/posts/edit/',
   AUTH = '/auth',
   LOG_IN = '/login',
   SIGN_UP = '/signup',

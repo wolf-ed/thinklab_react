@@ -1,6 +1,7 @@
 import { useLazyQuery, gql } from '@apollo/client';
 import { useAuth } from '../../hooks/useAuth/useAuth';
 import { LogInUserPropsInterface } from './types';
+import { UserInterface } from '../../store/user/types';
 
 const LOG_IN_USER = gql`
   query LogIn($email: String!, $password: String!) {
@@ -8,6 +9,7 @@ const LOG_IN_USER = gql`
       _id
       name
       token
+      email
     }
   }
 `;
@@ -31,7 +33,12 @@ export const useLogIn = () => {
       });
 
       if (data && data.LogIn && data.LogIn.token) {
-        auth.authUser(data.LogIn.token);
+        const user: UserInterface = {
+          id: data.LogIn._id,
+          name: data.LogIn.name,
+          email: data.LogIn.email,
+        };
+        auth.authUser(data.LogIn.token, user);
         onSuccess();
       } else {
         console.log('Login failed or token missing in response');
