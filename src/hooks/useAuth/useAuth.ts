@@ -12,12 +12,14 @@ import { UserInterface } from '../../store/user/types';
 export const useAuth = () => {
   const dispatch = useDispatch();
 
-  const authUser = (token: string, user: UserInterface): void => {
+  const authUser = (token: string, user: UserInterface | undefined): void => {
     saveToken(token);
     saveToken(token);
     dispatch(setIsUserLoggedIn({ isLoggedIn: true, token: token }));
-    dispatch(setUser(user));
-    saveUser(user);
+    if (user) {
+      dispatch(setUser(user));
+      saveUser(user);
+    }
   };
 
   const logOutUser = () => {
