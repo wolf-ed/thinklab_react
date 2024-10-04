@@ -77,6 +77,9 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       allItems.map((el) => (el.id === id ? { ...el, title: newTitle } : el))
     );
   };
+  const handleDeleteItem = (id: string) => {
+    setAllItems(allItems.filter((el) => el.id !== id));
+  };
   const handleItemContentChange = (id: string, newContent: string) => {
     setAllItems(
       allItems.map((el) => (el.id === id ? { ...el, content: newContent } : el))
@@ -126,6 +129,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
                       item={item}
                       toggleAccordion={toggleAccordion}
                       handleItemTitleChange={handleItemTitleChange}
+                      handleDeleteItem={handleDeleteItem}
                       updateContent={(newContent: string) => {
                         handleItemContentChange(item.id, newContent);
                       }}

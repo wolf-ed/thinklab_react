@@ -1,5 +1,12 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import {
+  IconButton,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@mui/material';
 import { DraggableProvided } from 'react-beautiful-dnd';
 
 // LOCAL
@@ -16,6 +23,7 @@ export interface EditorItemPropsInterface {
   item: PostItemInterface;
   toggleAccordion: (id: string) => void;
   handleItemTitleChange: (id: string, newTitle: string) => void;
+  handleDeleteItem: (id: string) => void;
   isAuth?: boolean;
   updateContent: (content: string) => void;
 }
@@ -25,6 +33,7 @@ export const EditorItemComponent = ({
   item,
   toggleAccordion,
   handleItemTitleChange,
+  handleDeleteItem,
   isAuth = false,
   updateContent,
 }: EditorItemPropsInterface) => {
@@ -76,30 +85,39 @@ export const EditorItemComponent = ({
       TransitionProps={{ unmountOnExit: true }}
     >
       <AccordionSummary
-        {...provided.dragHandleProps}
         expandIcon={<ExpandMoreIcon sx={{ color: textColor }} />}
         sx={{
           display: 'flex',
           flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
+        {...provided.dragHandleProps}
       >
-        <div
-          style={{
-            height: '100%',
-            margin: 'auto',
-            fontWeight: '700',
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteItem(item.id);
+          }}
+          edge="start"
+          size="small"
+          sx={{
             color: textColor,
           }}
         >
-          {item.type}
-        </div>
+          <DragIndicatorIcon
+            sx={{ cursor: 'grab' }}
+            onMouseDown={() => (document.body.style.cursor = 'grabbing')}
+            onMouseUp={() => (document.body.style.cursor = 'grab')}
+          />
+        </IconButton>
         <ItemTitleTextFieldStyled
           variant="outlined"
           value={item.title}
           onChange={(event) =>
             handleItemTitleChange(item.id, event.target.value)
           }
-          placeholder="Write tittle..."
+          placeholder="Write title..."
           InputProps={{
             style: {
               height: '56px',
@@ -114,6 +132,20 @@ export const EditorItemComponent = ({
             e.stopPropagation();
           }}
         />
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteItem(item.id);
+          }}
+          edge="end"
+          size="small"
+          sx={{
+            color: textColor,
+            marginRight: 3,
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </AccordionSummary>
       <AccordionDetails
         sx={{
