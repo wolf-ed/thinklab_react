@@ -185,7 +185,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   );
 
   const addMathButton = (
-    <CustomToolTip title={'Add a Code Editor Item'}>
+    <CustomToolTip title={'Add a Math Editor Item'}>
       <Button
         onClick={() => handleAddItem(EditorTypes.MATH)}
         variant="contained"
