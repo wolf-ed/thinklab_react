@@ -28,6 +28,7 @@ export const RootLayout = () => {
   return (
     <>
       <TopNavBar />
+      <TopNavBar isFixed={true} />
       <Outlet />
     </>
   );

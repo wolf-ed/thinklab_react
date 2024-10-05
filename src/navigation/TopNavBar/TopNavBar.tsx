@@ -10,12 +10,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 // LOCAL
 import { LeftDrawer } from '../LeftDrawer/LeftDrawer';
 import { setIsLetDrawerOpen } from '../../store/user/userSlice';
-import { StyledMainNavigation } from './TopNavBar.styles';
+import { TopNavBarStyled } from './TopNavBar.styles';
 import { App_Colors } from '../../styles/globalStyles';
 import { AppNameStyled } from './TopNavBar.styles';
 import { TopRightOptions } from './components/TopRightOptions/TopRightOptions';
 
-export const TopNavBar = () => {
+interface TopNavBarPropsInterface {
+  isFixed?: boolean;
+}
+
+export const TopNavBar = ({ isFixed = false }: TopNavBarPropsInterface) => {
   const dispatch = useDispatch();
 
   const threeBarsMenuIcon = (
@@ -45,7 +49,7 @@ export const TopNavBar = () => {
   );
 
   return (
-    <StyledMainNavigation>
+    <TopNavBarStyled isFixed={isFixed}>
       <AppBar
         position="static"
         sx={{
@@ -59,6 +63,6 @@ export const TopNavBar = () => {
         </Toolbar>
         <LeftDrawer />
       </AppBar>
-    </StyledMainNavigation>
+    </TopNavBarStyled>
   );
 };
