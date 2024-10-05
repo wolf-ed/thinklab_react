@@ -26,10 +26,6 @@ export const PostTitle = ({
 }: PostTitlePropsInterface) => {
   const navigate = useNavigate();
   const userId = useSelector(getUserId);
-  console.log('userId', {
-    userId,
-    postOwnerId,
-  });
   const userOwnsThisPost = userId && postOwnerId && userId === postOwnerId;
   const postTitle = <PostTitleStyled>{title}</PostTitleStyled>;
   const buttonsIfPostIsCurrentUser = userOwnsThisPost ? (
