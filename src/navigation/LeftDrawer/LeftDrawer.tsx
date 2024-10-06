@@ -12,6 +12,7 @@ import { getIsLeftDrawerOpen } from '../../store/user/userSelectors';
 import {
   AboutNavigationItem,
   GithubNavigationItem,
+  LinkedInNavigationItem,
   PortfolioNavigationItem,
   PrivacyNavigationItem,
 } from './components/ExternalNavigationItems/ExternalNavigationItems';
@@ -45,6 +46,7 @@ export const LeftDrawer = () => {
     <List>
       <GithubNavigationItem onClick={toggleLeftDrawer} />
       <PortfolioNavigationItem onClick={toggleLeftDrawer} />
+      <LinkedInNavigationItem onClick={toggleLeftDrawer} />
       <AboutNavigationItem onClick={toggleLeftDrawer} />
       <PrivacyNavigationItem onClick={toggleLeftDrawer} />
     </List>

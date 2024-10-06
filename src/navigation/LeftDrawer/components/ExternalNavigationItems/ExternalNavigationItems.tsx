@@ -1,6 +1,7 @@
 // ICONS
 import GitHubIcon from '@mui/icons-material/GitHub';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 // LOCAL
 import { NavigationItem } from '../NavigationItem/NavigationItem';
@@ -38,6 +39,19 @@ export const PortfolioNavigationItem = ({
   );
 };
 
+export const AboutNavigationItem = ({
+  onClick,
+}: NavigationItemPropsInterface) => {
+  return (
+    <NavigationItem
+      onClick={onClick}
+      title={`About`}
+      route={ROUTES_ENUM.ABOUT}
+      icon={<MenuBookIcon />}
+    />
+  );
+};
+
 export const PrivacyNavigationItem = ({
   onClick,
 }: NavigationItemPropsInterface) => {
@@ -51,15 +65,15 @@ export const PrivacyNavigationItem = ({
   );
 };
 
-export const AboutNavigationItem = ({
+export const LinkedInNavigationItem = ({
   onClick,
 }: NavigationItemPropsInterface) => {
   return (
     <NavigationItem
       onClick={onClick}
-      title={`About`}
-      route={ROUTES_ENUM.ABOUT}
-      icon={<MenuBookIcon />}
+      externalLink="https://www.linkedin.com/in/alvaroe-bl"
+      title={`LinkedIn`}
+      icon={<LinkedInIcon />}
     />
   );
 };
