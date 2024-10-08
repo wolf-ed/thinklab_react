@@ -19,7 +19,7 @@ export const PostsEditorPage = () => {
     }
   }, [getPosts, postId]);
 
-  if (loading) {
+  if (postId && loading) {
     return <LoadingComponent />;
   }
 
