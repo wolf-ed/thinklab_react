@@ -5,6 +5,7 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import CodeIcon from '@mui/icons-material/Code';
 import { useSelector } from 'react-redux';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import PreviewIcon from '@mui/icons-material/Preview';
 
 // LOCAL
 import { EditorTypes } from './types';
@@ -203,7 +204,8 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   const displayResult = (
     <CustomButtonWithDialog
       buttonProps={{
-        buttonTitle: 'See Final Post',
+        startIcon: <PreviewIcon />,
+        buttonTitle: 'See',
       }}
     >
       <PostTile
