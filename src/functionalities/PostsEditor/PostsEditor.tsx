@@ -17,6 +17,8 @@ import {
   ContainerStyled,
   ButtonsContainerStyled,
   FullWidthTextFieldStyled,
+  PostContainerStyled,
+  AiContainerStyled,
 } from './PostsEditor.styles';
 import { App_Colors } from '../../styles/globalStyles';
 import { CustomToolTip } from '../../components/CustomToolTip/CustomToolTip';
@@ -31,6 +33,7 @@ import { CustomButtonWithDialog } from '../../components/CustomButtonWithDialog/
 import { PostInterface } from '../../store/posts/postsSlice';
 import { decodePostContent } from '../Posts/utils';
 import { PostContentDecodedInterface } from '../Posts/types';
+import { AIChat } from '../AIChat/AIChat';
 
 export interface PostsEditorPropsInterface {
   post?: PostInterface;
@@ -252,9 +255,14 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
 
   return (
     <ContainerStyled>
-      {titleInput}
-      {itemsList}
-      {buttons}
+      <PostContainerStyled>
+        {titleInput}
+        {itemsList}
+        {buttons}
+      </PostContainerStyled>
+      <AiContainerStyled>
+        <AIChat />
+      </AiContainerStyled>
     </ContainerStyled>
   );
 };

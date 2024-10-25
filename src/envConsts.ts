@@ -1,5 +1,6 @@
-enum APP_ENVS_ENUM {
+export enum APP_ENVS_ENUM {
   VITE_API_PRODUCTION = 'VITE_API_PRODUCTION',
+  VITE_GEMINI_API_KEY = 'VITE_GEMINI_API_KEY',
 }
 
 export const getEnv = (envKey: APP_ENVS_ENUM): string | undefined => {
