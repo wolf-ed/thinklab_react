@@ -25,6 +25,19 @@ export const TextEditor = ({
   const quillRef = useRef<HTMLDivElement | null>(null);
   const quillInstance = useRef<Quill | null>(null);
 
+  function debounce<F extends (...args: any[]) => any>(
+    func: F,
+    timeout = 300
+  ): (...args: Parameters<F>) => void {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    return (...args: Parameters<F>) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, timeout);
+    };
+  }
+
   useEffect(() => {
     if (quillRef.current && !quillInstance.current) {
       quillInstance.current = new Quill(quillRef.current, {
@@ -51,9 +64,13 @@ export const TextEditor = ({
         },
       });
 
+      const debouncedSetEditorValue = debounce((html) => {
+        setTextEditorValue(html || '');
+      });
+
       quillInstance.current.on('text-change', () => {
         const html = quillInstance.current?.root.innerHTML;
-        setTextEditorValue(html || '');
+        debouncedSetEditorValue(html);
       });
     }
   }, []);
