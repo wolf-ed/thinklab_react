@@ -7,7 +7,6 @@ export enum ROUTES_ENUM {
   SIGN_UP = '/signup',
   USER = '/user',
   CODE_SANDBOX = '/codesandbox',
-  TEXT_EDITOR = '/textEditor',
   POSTS_EDITOR = '/posts-editor',
   ERROR = '/error',
   USER_ACCOUNT = '/account',

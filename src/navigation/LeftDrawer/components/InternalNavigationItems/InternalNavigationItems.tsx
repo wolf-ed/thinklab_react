@@ -1,6 +1,5 @@
 // ICONS
 import BiotechIcon from '@mui/icons-material/Biotech';
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CodeIcon from '@mui/icons-material/Code';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 // LOCAL
@@ -21,19 +20,6 @@ export const PostsEditorNavigationItem = ({
       title={`Posts Editor`}
       route={ROUTES_ENUM.POSTS_EDITOR}
       icon={<BiotechIcon />}
-      onClick={onClick}
-    />
-  );
-};
-
-export const TextEditorNavigationItem = ({
-  onClick,
-}: NavigationItemPropsInterface) => {
-  return (
-    <NavigationItem
-      title={`Text Editor`}
-      route={ROUTES_ENUM.TEXT_EDITOR}
-      icon={<DriveFileRenameOutlineIcon />}
       onClick={onClick}
     />
   );

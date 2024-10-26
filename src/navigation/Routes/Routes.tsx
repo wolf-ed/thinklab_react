@@ -8,7 +8,6 @@ import { RootLayout } from '../RootLayout/RootLayout';
 import { ROUTES_ENUM } from '../const';
 import { ErrorPage } from '../../pages/ErrorPage/ErrorPage';
 import { CodeSandboxPage } from '../../pages/CodeSandbox/CodeSandboxPage';
-import { TextEditorPage } from '../../pages/TextEditorPage/TextEditorPage';
 import { PostsEditorPage } from '../../pages/PostsEditorPage/PostsEditorPage';
 // import { SignUpOrLogInPage } from '../../pages/SignUpOrLogInPage/SignUpOrLogInPage';
 import { LogInPage } from '../../pages/LogInPage/LogInPage';

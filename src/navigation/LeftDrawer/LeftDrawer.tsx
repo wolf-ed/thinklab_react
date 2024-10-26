@@ -20,7 +20,6 @@ import {
   CodeEditorNavigationItem,
   PostsListNavigationItem,
   PostsEditorNavigationItem,
-  TextEditorNavigationItem,
 } from './components/InternalNavigationItems/InternalNavigationItems';
 
 const drawerWidth = 240;
@@ -36,7 +35,6 @@ export const LeftDrawer = () => {
   const localRoutes = (
     <List>
       <PostsEditorNavigationItem onClick={toggleLeftDrawer} />
-      <TextEditorNavigationItem onClick={toggleLeftDrawer} />
       <CodeEditorNavigationItem onClick={toggleLeftDrawer} />
       <PostsListNavigationItem onClick={toggleLeftDrawer} />
     </List>
