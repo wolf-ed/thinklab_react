@@ -63,6 +63,7 @@ export const EditorItemComponent = ({
           <ControlledTextEditor
             content={item.content}
             key={item.id}
+            componentKey={item.id}
             updateContent={updateContent}
           />
         );

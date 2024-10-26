@@ -10,7 +10,6 @@ export const useGemini = () => {
     messages: string
   ): Promise<string> => {
     let response: string = '';
-    console.log('GEMINI_API_KEY', GEMINI_API_KEY);
 
     try {
       const result = await model.generateContent(messages);

@@ -66,10 +66,6 @@ export function Routes() {
           element: isAuth ? <CodeSandboxPage /> : <CodeSandboxPage />,
         },
         {
-          path: ROUTES_ENUM.TEXT_EDITOR,
-          element: <TextEditorPage />,
-        },
-        {
           path: ROUTES_ENUM.POSTS_EDITOR,
           element: isAuth ? <PostsEditorPage /> : <PostsEditorPage />,
         },
