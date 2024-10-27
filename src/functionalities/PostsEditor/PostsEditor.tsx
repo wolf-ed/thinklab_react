@@ -32,7 +32,6 @@ import { PostInterfaceEncoded } from './types';
 import { CustomButtonWithDialog } from '../../components/CustomButtonWithDialog/CustomButtonWithDialog';
 import { PostInterface } from '../../store/posts/postsSlice';
 import { decodePostContent } from '../Posts/utils';
-import { PostContentDecodedInterface } from '../Posts/types';
 import { AIChat } from '../AIChat/AIChat';
 
 export interface PostsEditorPropsInterface {
@@ -88,10 +87,10 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
         post.content
       );
       const itemsMap = postContent
-        ? postContent.reduce((acc, item) => {
+        ? postContent.reduce((acc: Record<string, PostItemInterface>, item) => {
             acc[item.id] = item;
             return acc;
-          }, {})
+          }, {} as Record<string, PostItemInterface>)
         : {};
       dispatch({ type: 'setAllItems', payload: itemsMap });
     }
@@ -104,6 +103,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       content: '',
       title: '',
       expanded: false,
+      index: Object.keys(allItems).length,
     };
     dispatch({ type: 'addItem', item: newItem });
   };
@@ -141,10 +141,13 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
     const itemsArray = Object.values(allItems);
     const [reorderedItem] = itemsArray.splice(sourceIndex, 1);
     itemsArray.splice(destinationIndex, 0, reorderedItem);
-    const newItemsMap = itemsArray.reduce((acc, item) => {
-      acc[item.id] = item;
-      return acc;
-    }, {});
+    const newItemsMap = itemsArray.reduce(
+      (acc: Record<string, PostItemInterface>, item, index) => {
+        acc[item.id] = { ...item, index };
+        return acc;
+      },
+      {} as Record<string, PostItemInterface>
+    );
     dispatch({ type: 'setAllItems', payload: newItemsMap });
   };
   const handleSave = () => {
