@@ -6,6 +6,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import { useSelector } from 'react-redux';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import PreviewIcon from '@mui/icons-material/Preview';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 // LOCAL
 import { EditorTypes } from './types';
@@ -42,6 +43,7 @@ export interface PostsEditorPropsInterface {
 export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   const isAuth = useSelector(userSelectors.getIsAuth);
   const [title, setTitle] = useState(post ? post.title : '');
+  const [showAiContainer, setShowAiContainer] = useState(true);
   const [allItems, dispatch] = useReducer(postItemReducer, {});
   const { savePost } = useSavePost();
 
@@ -247,12 +249,29 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
     </CustomButtonWithDialog>
   );
 
+  const toggleAiContainer = (
+    <CustomToolTip title={'Add a Math Editor Item'}>
+      <Button
+        onClick={() => setShowAiContainer((prev) => !prev)}
+        variant="contained"
+        sx={{
+          backgroundColor: App_Colors.matrixDarker,
+          border: '1px solid white',
+        }}
+        startIcon={<AutoAwesomeIcon />}
+      >
+        AI
+      </Button>
+    </CustomToolTip>
+  );
+
   const buttons = (
     <ButtonsContainerStyled>
       {addTextButton}
       {addCodeButton}
       {addMathButton}
       {displayResult}
+      {toggleAiContainer}
       <CustomToolTip
         title={
           isAuth && !ENV_IS_PROD
@@ -284,12 +303,12 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
 
   return (
     <ContainerStyled>
-      <PostContainerStyled>
+      <PostContainerStyled showAiContainer={showAiContainer}>
         {titleInput}
         {itemsList}
         {buttons}
       </PostContainerStyled>
-      <AiContainerStyled>
+      <AiContainerStyled showAiContainer={showAiContainer}>
         <AIChat />
       </AiContainerStyled>
     </ContainerStyled>

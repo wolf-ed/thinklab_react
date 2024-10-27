@@ -36,20 +36,26 @@ export const FullWidthTextFieldStyled = styled(TextField)({
   },
 });
 
-export const PostContainerStyled = styled('div')({
-  position: 'relative',
-  width: '60%',
-  overflow: 'hidden',
-});
+export const PostContainerStyled = styled('div')<{ showAiContainer: boolean }>(
+  (props) => ({
+    position: 'relative',
+    width: props.showAiContainer ? '60%' : '100%',
+    overflow: 'hidden',
+    transition: 'width 0.3s ease',
+  })
+);
 
-export const AiContainerStyled = styled('div')({
-  backgroundColor: 'rgba(240, 240, 240, 0.5)',
-  width: '40%',
-  padding: '0',
-  zIndex: '10',
-  overflow: 'hidden',
-  borderRadius: '12px',
-  position: 'fixed',
-  right: 0,
-  top: 75,
-});
+export const AiContainerStyled = styled('div')<{ showAiContainer: boolean }>(
+  (props) => ({
+    backgroundColor: 'rgba(240, 240, 240, 0.5)',
+    width: '40%',
+    padding: '0',
+    zIndex: '10',
+    overflow: 'hidden',
+    borderRadius: '12px',
+    position: 'fixed',
+    right: props.showAiContainer ? 0 : '-40%',
+    top: 75,
+    transition: 'right 0.3s ease',
+  })
+);
