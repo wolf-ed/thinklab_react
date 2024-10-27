@@ -250,7 +250,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   );
 
   const toggleAiContainer = (
-    <CustomToolTip title={'Add a Math Editor Item'}>
+    <CustomToolTip title={showAiContainer ? 'Hide Ai' : 'Show Ai'}>
       <Button
         onClick={() => setShowAiContainer((prev) => !prev)}
         variant="contained"
