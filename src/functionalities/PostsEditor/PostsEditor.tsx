@@ -33,46 +33,10 @@ import { CustomButtonWithDialog } from '../../components/CustomButtonWithDialog/
 import { PostInterface } from '../../store/posts/postsSlice';
 import { decodePostContent } from '../Posts/utils';
 import { AIChat } from '../AIChat/AIChat';
+import { PostItemActionTypes, postItemReducer } from './postItemReducer';
 
 export interface PostsEditorPropsInterface {
   post?: PostInterface;
-}
-
-type PostItemAction =
-  | {
-      type: 'updateOneItem';
-      id: string;
-      propertyName: keyof PostItemInterface;
-      value: any;
-    }
-  | { type: 'setAllItems'; payload: Record<string, PostItemInterface> }
-  | { type: 'addItem'; item: PostItemInterface }
-  | { type: 'removeItem'; id: string };
-
-function postItemReducer(
-  state: Record<string, PostItemInterface>,
-  action: PostItemAction
-): Record<string, PostItemInterface> {
-  switch (action.type) {
-    case 'updateOneItem':
-      return {
-        ...state,
-        [action.id]: {
-          ...state[action.id],
-          [action.propertyName]: action.value,
-        },
-      };
-    case 'setAllItems':
-      return action.payload;
-    case 'addItem':
-      return { ...state, [action.item.id]: action.item };
-    case 'removeItem':
-      const newState = { ...state };
-      delete newState[action.id];
-      return newState;
-    default:
-      return state;
-  }
 }
 
 export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
@@ -92,7 +56,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
             return acc;
           }, {} as Record<string, PostItemInterface>)
         : {};
-      dispatch({ type: 'setAllItems', payload: itemsMap });
+      dispatch({ type: PostItemActionTypes.SetAllItems, payload: itemsMap });
     }
   }, [post]);
 
@@ -105,7 +69,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       expanded: false,
       index: Object.keys(allItems).length,
     };
-    dispatch({ type: 'addItem', item: newItem });
+    dispatch({ type: PostItemActionTypes.AddItem, item: newItem });
   };
 
   const handleItemChange = (
@@ -113,11 +77,16 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
     property: keyof PostItemInterface,
     value: any
   ) => {
-    dispatch({ type: 'updateOneItem', id, propertyName: property, value });
+    dispatch({
+      type: PostItemActionTypes.UpdateOneItem,
+      id,
+      propertyName: property,
+      value,
+    });
   };
 
   const handleDeleteItem = (id: string) => {
-    dispatch({ type: 'removeItem', id });
+    dispatch({ type: PostItemActionTypes.RemoveItem, id });
   };
 
   const toggleAccordion = (id: string) => {
@@ -148,7 +117,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       },
       {} as Record<string, PostItemInterface>
     );
-    dispatch({ type: 'setAllItems', payload: newItemsMap });
+    dispatch({ type: PostItemActionTypes.SetAllItems, payload: newItemsMap });
   };
   const handleSave = () => {
     const postToSave: SavePostPropsInterface = {
