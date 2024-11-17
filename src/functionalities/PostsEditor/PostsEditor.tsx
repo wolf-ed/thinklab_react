@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
@@ -33,6 +33,7 @@ import { PostInterfaceEncoded } from './types';
 import { CustomButtonWithDialog } from '../../components/CustomButtonWithDialog/CustomButtonWithDialog';
 import { PostInterface } from '../../store/posts/postsSlice';
 import { decodePostContent } from '../Posts/utils';
+import { PostContentDecodedInterface } from '../Posts/types';
 import { AIChat } from '../AIChat/AIChat';
 import { PostItemActionTypes, postItemReducer } from './postItemReducer';
 
@@ -43,83 +44,60 @@ export interface PostsEditorPropsInterface {
 export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   const isAuth = useSelector(userSelectors.getIsAuth);
   const [title, setTitle] = useState(post ? post.title : '');
-  const [showAiContainer, setShowAiContainer] = useState(true);
-  const [allItems, dispatch] = useReducer(postItemReducer, {});
+  const [allItems, setAllItems] = useState<PostItemInterface[]>([]);
   const { savePost } = useSavePost();
+  const [showAiContainer, setShowAiContainer] = useState(true);
 
   useEffect(() => {
     if (post) {
-      const postContent: PostItemInterface[] | null = decodePostContent(
-        post.content
-      );
-      const itemsMap = postContent
-        ? postContent.reduce((acc: Record<string, PostItemInterface>, item) => {
-            acc[item.id] = item;
-            return acc;
-          }, {} as Record<string, PostItemInterface>)
-        : {};
-      dispatch({ type: PostItemActionTypes.SetAllItems, payload: itemsMap });
+      const postContent: PostContentDecodedInterface[] | null =
+        decodePostContent(post.content);
+      if (postContent) {
+        setAllItems(postContent);
+      }
     }
-  }, [post]);
+  }, []);
 
   const handleAddItem = (type: EditorTypes) => {
-    const newItem = {
-      id: createId(),
-      type,
-      content: '',
-      title: '',
-      expanded: false,
-      index: Object.keys(allItems).length,
-    };
-    dispatch({ type: PostItemActionTypes.AddItem, item: newItem });
+    setAllItems([
+      ...allItems,
+      {
+        type,
+        content: '',
+        id: createId(),
+        index: allItems.length + 1,
+        expanded: false,
+        title: '',
+      },
+    ]);
   };
-
-  const handleItemChange = (
-    id: string,
-    property: keyof PostItemInterface,
-    value: any
-  ) => {
-    dispatch({
-      type: PostItemActionTypes.UpdateOneItem,
-      id,
-      propertyName: property,
-      value,
-    });
-  };
-
-  const handleDeleteItem = (id: string) => {
-    dispatch({ type: PostItemActionTypes.RemoveItem, id });
-  };
-
   const toggleAccordion = (id: string) => {
-    const currentExpandedState = allItems[id].expanded;
-    handleItemChange(id, 'expanded', !currentExpandedState);
+    setAllItems(
+      allItems.map((el) =>
+        el.id === id ? { ...el, expanded: !el.expanded } : el
+      )
+    );
   };
 
   const handleItemTitleChange = (id: string, newTitle: string) => {
-    handleItemChange(id, 'title', newTitle);
+    setAllItems(
+      allItems.map((el) => (el.id === id ? { ...el, title: newTitle } : el))
+    );
   };
-
+  const handleDeleteItem = (id: string) => {
+    setAllItems(allItems.filter((el) => el.id !== id));
+  };
   const handleItemContentChange = (id: string, newContent: string) => {
-    handleItemChange(id, 'content', newContent);
+    setAllItems(
+      allItems.map((el) => (el.id === id ? { ...el, content: newContent } : el))
+    );
   };
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-    const sourceIndex = Object.keys(allItems).indexOf(result.draggableId);
-    const destinationIndex = Object.keys(allItems).indexOf(
-      result.destination.droppableId
-    );
-    const itemsArray = Object.values(allItems);
-    const [reorderedItem] = itemsArray.splice(sourceIndex, 1);
-    itemsArray.splice(destinationIndex, 0, reorderedItem);
-    const newItemsMap = itemsArray.reduce(
-      (acc: Record<string, PostItemInterface>, item, index) => {
-        acc[item.id] = { ...item, index };
-        return acc;
-      },
-      {} as Record<string, PostItemInterface>
-    );
-    dispatch({ type: PostItemActionTypes.SetAllItems, payload: newItemsMap });
+    const items = Array.from(allItems);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setAllItems(items);
   };
   const handleSave = () => {
     const postToSave: SavePostPropsInterface = {
@@ -146,28 +124,26 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       <CustomDragAndDrop droppableId="items">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {Object.values(allItems)
-              .sort((a, b) => a.index - b.index)
-              .map((item, index) => {
-                return (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided) => (
-                      <EditorItemComponent
-                        key={item.id}
-                        isAuth={isAuth}
-                        provided={provided}
-                        item={item}
-                        toggleAccordion={toggleAccordion}
-                        handleItemTitleChange={handleItemTitleChange}
-                        handleDeleteItem={handleDeleteItem}
-                        updateContent={(newContent: string) => {
-                          handleItemContentChange(item.id, newContent);
-                        }}
-                      />
-                    )}
-                  </Draggable>
-                );
-              })}
+            {allItems.map((item, index) => {
+              return (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided) => (
+                    <EditorItemComponent
+                      key={item.id}
+                      isAuth={isAuth}
+                      provided={provided}
+                      item={item}
+                      toggleAccordion={toggleAccordion}
+                      handleItemTitleChange={handleItemTitleChange}
+                      handleDeleteItem={handleDeleteItem}
+                      updateContent={(newContent: string) => {
+                        handleItemContentChange(item.id, newContent);
+                      }}
+                    />
+                  )}
+                </Draggable>
+              );
+            })}
             {provided.placeholder}
           </div>
         )}
@@ -176,7 +152,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
   );
 
   const conditionIfUserIsAuthAndIsNotProd =
-    title || Object.values(allItems).length > 0
+    title || allItems.length > 0
       ? 'Save post'
       : 'You need a title and at least 1 item!';
 
@@ -248,7 +224,6 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       />
     </CustomButtonWithDialog>
   );
-
   const toggleAiContainer = (
     <CustomToolTip title={showAiContainer ? 'Hide Ai' : 'Show Ai'}>
       <Button
@@ -264,7 +239,6 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       </Button>
     </CustomToolTip>
   );
-
   const buttons = (
     <ButtonsContainerStyled>
       {addTextButton}
@@ -272,6 +246,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
       {addMathButton}
       {displayResult}
       {toggleAiContainer}
+
       <CustomToolTip
         title={
           isAuth && !ENV_IS_PROD
@@ -282,12 +257,7 @@ export const PostsEditor = ({ post }: PostsEditorPropsInterface) => {
         <Button
           onClick={handleSave}
           variant="contained"
-          disabled={
-            !title ||
-            Object.values(allItems).length === 0 ||
-            ENV_IS_PROD ||
-            !isAuth
-          }
+          disabled={!title || allItems.length === 0 || ENV_IS_PROD || !isAuth}
           sx={{
             backgroundColor: App_Colors.secondColor,
             color: App_Colors.mainColor,
