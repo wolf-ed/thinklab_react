@@ -35,7 +35,6 @@ import { PostInterface } from '../../store/posts/postsSlice';
 import { decodePostContent } from '../Posts/utils';
 import { PostContentDecodedInterface } from '../Posts/types';
 import { AIChat } from '../AIChat/AIChat';
-import { PostItemActionTypes, postItemReducer } from './postItemReducer';
 
 export interface PostsEditorPropsInterface {
   post?: PostInterface;
