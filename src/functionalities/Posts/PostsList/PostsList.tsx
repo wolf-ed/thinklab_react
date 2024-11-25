@@ -15,7 +15,7 @@ export const PostsList = () => {
     getPosts(null);
   }, []);
 
-  if (loading) {
+  if (loading && !posts) {
     return <LoadingComponent />;
   }
 
