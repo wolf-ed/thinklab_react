@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getToken } from '../../store/user/userSelectors';
 import { useSnackbarNotification } from '../SnackbarNotification/useSnackbarNotification';
 import { PostInterfaceEncoded } from '../PostsEditor/types';
-import { setPosts } from '../../store/posts/postsSlice';
+import { setMorePosts } from '../../store/posts/postsSlice';
 
 const GET_POSTS_QUERY = gql`
   query GetPosts($id: String) {
@@ -68,7 +68,7 @@ export const useGetPosts = () => {
       fetchPolicy: 'cache-and-network',
       onCompleted: (data) => {
         if (data && data.GetPosts && data.GetPosts.posts) {
-          dispatch(setPosts(data.GetPosts.posts));
+          dispatch(setMorePosts(data.GetPosts.posts));
         }
       },
     }
@@ -81,6 +81,7 @@ export const useGetPosts = () => {
       } catch (e) {
         snackbarNotif.showSnackbar({
           message: 'Failed to load posts',
+          severity: 'error',
           duration: 3000,
         });
       }

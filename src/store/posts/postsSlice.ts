@@ -28,6 +28,13 @@ const postsSlice = createSlice({
     setPosts: (state, action: PayloadAction<PostInterface[]>) => {
       state.posts = action.payload;
     },
+    setMorePosts: (state, action: PayloadAction<PostInterface[]>) => {
+      const existingIds = new Set(state.posts.map((post) => post.id));
+      const newPosts = action.payload.filter(
+        (post) => !existingIds.has(post.id)
+      );
+      state.posts.push(...newPosts);
+    },
     selectPost: (state, action: PayloadAction<PostInterface>) => {
       state.selectedPost = action.payload;
     },
@@ -62,6 +69,7 @@ const postsSlice = createSlice({
 
 export const {
   setPosts,
+  setMorePosts,
   selectPost,
   setLoading,
   setError,

@@ -19,7 +19,7 @@ export const PostsList = () => {
     return <LoadingComponent />;
   }
 
-  if (error) {
+  if (error && !posts) {
     return (
       <Typography variant="body1" color="error" textAlign="center">
         Error loading posts: {error.message}
@@ -38,7 +38,7 @@ export const PostsList = () => {
   return (
     <ContainerStyled>
       {posts.map((postItem) => (
-        <PostTile postItem={postItem} />
+        <PostTile postItem={postItem} key={postItem.id} />
       ))}
     </ContainerStyled>
   );
